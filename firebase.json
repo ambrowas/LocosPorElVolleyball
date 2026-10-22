@@ -1,0 +1,52 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/waiso",
+        "destination": "/waiso.html"
+      },
+      {
+        "source": "/taller-waiso",
+        "destination": "/waiso.html"
+      },
+      {
+        "source": "/inscripcion",
+        "destination": "/waiso.html"
+      },
+      {
+        "source": "/admin",
+        "destination": "/admin.html"
+      },
+      {
+        "source": "/waiso-admin",
+        "destination": "/admin.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(svg|jpg|jpeg|png|webp|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      }
+    ]
+  }
+}

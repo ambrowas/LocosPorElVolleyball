@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540" role="img" aria-label="Cancha de Voleibol Locos por el Volleyball en Malabo y Bata">
+  <defs>
+    <linearGradient id="bgSky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071124" />
+      <stop offset="55%" stop-color="#0E2347" />
+      <stop offset="100%" stop-color="#0A3A36" />
+    </linearGradient>
+    <linearGradient id="courtFloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#9A3412" />
+    </linearGradient>
+    <linearGradient id="courtInfield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <radialGradient id="ArenaGlow" cx="50%" cy="32%" r="50%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.38" />
+      <stop offset="60%" stop-color="#38BDF8" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#071124" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="ballHero" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+  </defs>
+
+  <!-- Arena Background -->
+  <rect width="800" height="540" rx="24" fill="url(#bgSky)" />
+  <circle cx="400" cy="190" r="320" fill="url(#ArenaGlow)" />
+
+  <!-- Stadium Lights -->
+  <g fill="#FEF08A" opacity="0.8">
+    <circle cx="140" cy="52" r="5" />
+    <circle cx="240" cy="40" r="5" />
+    <circle cx="400" cy="34" r="6" />
+    <circle cx="560" cy="40" r="5" />
+    <circle cx="660" cy="52" r="5" />
+  </g>
+  <g stroke="#FEF08A" stroke-width="1.5" opacity="0.16">
+    <line x1="140" y1="52" x2="290" y2="360" />
+    <line x1="240" y1="40" x2="360" y2="360" />
+    <line x1="400" y1="34" x2="400" y2="360" />
+    <line x1="560" y1="40" x2="440" y2="360" />
+    <line x1="660" y1="52" x2="510" y2="360" />
+  </g>
+
+  <!-- Perspective Court Floor -->
+  <polygon points="40,490 760,490 610,310 190,310" fill="url(#courtFloor)" opacity="0.92" />
+  <polygon points="105,465 695,465 575,328 225,328" fill="url(#courtInfield)" stroke="#FFFFFF" stroke-width="3.5" />
+  <!-- Attack Lines & Center Line -->
+  <line x1="162" y1="396" x2="638" y2="396" stroke="#FFFFFF" stroke-width="3" />
+  <line x1="195" y1="362" x2="605" y2="362" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="8 6" />
+  <line x1="130" y1="432" x2="670" y2="432" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="8 6" />
+
+  <!-- Volleyball Net -->
+  <g>
+    <!-- Posts -->
+    <rect x="148" y="218" width="10" height="184" rx="4" fill="#E2E8F0" />
+    <rect x="642" y="218" width="10" height="184" rx="4" fill="#E2E8F0" />
+    <!-- Net Mesh -->
+    <rect x="156" y="228" width="488" height="68" fill="#0F172A" fill-opacity="0.45" stroke="#FFFFFF" stroke-width="2" />
+    <!-- Top Tape with GE Flag Accent -->
+    <rect x="154" y="224" width="492" height="8" fill="#FFFFFF" />
+    <rect x="154" y="220" width="164" height="4" fill="#009A49" />
+    <rect x="318" y="220" width="164" height="4" fill="#FFFFFF" />
+    <rect x="482" y="220" width="164" height="4" fill="#E32119" />
+    <!-- Antennae -->
+    <line x1="178" y1="194" x2="178" y2="296" stroke="#EF4444" stroke-width="4" stroke-dasharray="10 10" />
+    <line x1="178" y1="194" x2="178" y2="296" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="10 10" stroke-dashoffset="10" />
+    <line x1="622" y1="194" x2="622" y2="296" stroke="#EF4444" stroke-width="4" stroke-dasharray="10 10" />
+    <line x1="622" y1="194" x2="622" y2="296" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="10 10" stroke-dashoffset="10" />
+  </g>
+
+  <!-- Spiker Silhouette in Action -->
+  <g transform="translate(275, 110)">
+    <!-- Energy Trail -->
+    <path d="M95 55 Q195 25 270 140" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10" />
+    <path d="M85 45 Q175 5 255 120" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" opacity="0.8" />
+    <!-- Player Dynamic Silhouette -->
+    <circle cx="48" cy="48" r="16" fill="#F8FAFC" />
+    <path d="M35 68 L74 60 L98 22 L110 28 L82 74 L68 122 L95 168 L81 176 L52 132 L26 172 L12 163 L36 116 Z" fill="#009A49" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
+    <!-- Jersey Number -->
+    <text x="56" y="102" fill="#FFFFFF" font-family="system-ui, sans-serif" font-weight="800" font-size="18" text-anchor="middle">10</text>
+  </g>
+
+  <!-- Blocker Silhouette -->
+  <g transform="translate(475, 130)">
+    <circle cx="42" cy="52" r="15" fill="#F8FAFC" />
+    <path d="M22 70 L62 70 L74 18 L86 20 L74 82 L64 134 L76 184 L61 188 L42 142 L23 188 L8 184 L20 134 L10 82 L-2 20 L10 18 Z" fill="#E32119" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
+  </g>
+
+  <!-- Glowing Volleyball at Peak -->
+  <g transform="translate(415, 122)">
+    <circle r="34" fill="#F59E0B" opacity="0.3" filter="blur(8px)" />
+    <circle r="26" fill="url(#ballHero)" stroke="#FFFFFF" stroke-width="2.5" />
+    <path d="M-18 -18 Q0 -5 18 -18" fill="none" stroke="#0B1D3A" stroke-width="2.5" />
+    <path d="M-24 4 Q-2 -8 24 4" fill="none" stroke="#0B1D3A" stroke-width="2.5" />
+    <path d="M-14 21 Q4 5 21 -8" fill="none" stroke="#0B1D3A" stroke-width="2.5" />
+  </g>
+
+  <!-- Scoreboard / Location Badge Overlay inside SVG -->
+  <g transform="translate(40, 36)">
+    <rect width="265" height="54" rx="12" fill="#0F172A" fill-opacity="0.85" stroke="#334155" stroke-width="1.5" />
+    <circle cx="26" cy="27" r="6" fill="#22C55E" />
+    <text x="44" y="24" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1">LIGA NACIONAL FEGUIVOLEY</text>
+    <text x="44" y="41" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="14" font-weight="800">MALABO • Bata • SIPOPO</text>
+  </g>
+</svg>

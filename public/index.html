@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asociación Deportiva “Locos por el Voleibol” | Guinea Ecuatorial</title>
+  <meta
+    name="description"
+    content="Asociación Deportiva Locos por el Voleibol (nacida en 2010 en Malabo, Guinea Ecuatorial). Taller de Iniciación Escolar en el Colegio Waiso Ipola, torneos y Voley Playa Sipopo."
+  />
+  <link rel="icon" type="image/png" href="/assets/logo-oficial.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <!-- Cabecera Minimalista con el Escudo Oficial -->
+  <header class="site-header">
+    <nav class="nav-container" aria-label="Navegación principal">
+      <a href="#inicio" class="brand">
+        <div class="brand-logo-wrap">
+          <img
+            src="/assets/logo-oficial.png"
+            alt="Escudo Oficial Asociación Deportiva Locos por el Voleibol"
+            class="brand-logo"
+            width="48"
+            height="48"
+            fetchpriority="high"
+          />
+        </div>
+        <div>
+          <span class="brand-title" id="site-brand-title">Locos por el Voleibol</span>
+          <span class="brand-subtitle" id="site-brand-subtitle">Asociación Deportiva · Guinea Ecuatorial</span>
+        </div>
+      </a>
+
+      <ul id="main-nav-links" class="nav-links">
+        <li><a href="#pilares">Quiénes Somos</a></li>
+        <li><a href="#articulos">Artículos</a></li>
+        <li><a href="#competiciones">Torneos</a></li>
+        <li><a href="#galeria-eventos">Galería</a></li>
+        <li><a href="#colegios">11 Colegios</a></li>
+        <li><a href="#sedes">Sedes</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/taller-waiso" class="btn btn-soft btn-sm">
+          Inscripción Taller →
+        </a>
+        <a href="/admin" class="btn btn-outline btn-sm" id="open-admin-btn" title="Panel de Administración">
+          🔒 Admin
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Minimalista con Escudo Oficial y Galería de Fotos Interactiva -->
+    <section id="inicio" class="section hero">
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 0.6rem;">
+        <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="hero-content" data-toggle-section>
+          <span class="toggle-text">Plegar portada</span> <span class="toggle-icon">▲</span>
+        </button>
+      </div>
+
+      <div id="hero-content" class="collapsible-content">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-crest-banner">
+              <img
+                src="/assets/logo-oficial.png"
+                alt="Escudo Locos por el Voleibol 2013"
+                class="hero-crest-img"
+                width="34"
+                height="34"
+              />
+              <span id="hero-eyebrow" style="font-size: 0.74rem; font-weight: 600; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.06em;">
+                Fundada en 2010 · Emblema 2013 · Malabo, Guinea Ecuatorial
+              </span>
+            </div>
+
+            <h1 class="hero-title" id="hero-title">
+              Impulsamos el voleibol <strong>social, escolar, formativo y competitivo</strong> en Guinea Ecuatorial.
+            </h1>
+            <p class="hero-lead" id="hero-lead">
+              Nacida en <strong>2010</strong> por iniciativa de un grupo de jóvenes malabeños para masificar el voleibol y crear cantera desde el deporte base. Entrenamos en <strong>Salesianos Don Bosco de Elá Nguema</strong>, impulsamos talleres de iniciación gratuitos para colegios (10 a 18 años) hacia una <strong>Liga Escolar Intercolegial</strong> y organizamos desde 2012 el <strong>Torneo de Voley Playa Sipopo</strong>.
+            </p>
+            <div class="hero-actions">
+              <a href="/taller-waiso" class="btn btn-primary">
+                🏐 Inscribirse al Taller Colegio Waiso Ipola
+              </a>
+              <button type="button" class="btn btn-outline" data-open-register="competitivo">
+                Unirse como Socio / Jugador Adulto
+              </button>
+            </div>
+          </div>
+
+          <!-- Galería de Fotos Dinámica (alimentada desde Admin) -->
+          <aside class="hero-gallery-box" aria-label="Galería de Fotos de Entrenamientos y Actividades">
+            <div class="hero-gallery-top">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="city-pill" id="gallery-location-pill">Polideportivo Don Bosco</span>
+                <span style="font-size: 0.74rem; color: var(--text-muted);" id="gallery-counter">1 / 3</span>
+              </div>
+              <a
+                href="/admin?tab=photos"
+                class="btn btn-outline btn-sm"
+                style="padding: 0.22rem 0.65rem; font-size: 0.73rem; text-decoration: none;"
+              >
+                📸 Cambiar fotos
+              </a>
+            </div>
+
+            <div class="hero-gallery-stage" id="hero-gallery-stage" title="Haz clic en la foto para abrirla en grande">
+              <img
+                id="hero-gallery-main-img"
+                src="/assets/gallery-donbosco.svg"
+                alt="Galería Locos por el Voleibol"
+                class="hero-gallery-img"
+                width="800"
+                height="520"
+              />
+              <span class="hero-gallery-zoom-hint">🔍 Clic para ver en grande</span>
+              <button type="button" class="gallery-nav-btn gallery-nav-prev" id="gallery-prev-btn" aria-label="Foto anterior">‹</button>
+              <button type="button" class="gallery-nav-btn gallery-nav-next" id="gallery-next-btn" aria-label="Foto siguiente">›</button>
+            </div>
+
+            <div class="hero-gallery-caption-bar">
+              <div>
+                <span class="hero-gallery-caption-text" id="gallery-caption-title">Entrenamientos en Salesianos Don Bosco (Elá Nguema)</span>
+                <span class="hero-gallery-sub" id="gallery-caption-desc">Lunes a viernes de 19:00 a 21:00 h · Telf.: +240 222 59 69 35</span>
+              </div>
+              <div id="gallery-dots" class="gallery-dots"></div>
+            </div>
+
+            <div id="hero-gallery-thumbs" class="hero-gallery-thumbs"></div>
+          </aside>
+        </div>
+
+        <div id="hero-metrics-container" class="hero-metrics" aria-label="Cifras del Plan de Acción"></div>
+      </div>
+    </section>
+
+    <!-- Los 3 Pilares (Editables desde Admin) -->
+    <section id="pilares" class="section">
+      <div class="section-header-row">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="eyebrow" id="pillars-eyebrow">Quiénes Somos · Desde 2010</span>
+          <h2 class="section-title" id="pillars-title">Deporte base, formación técnica y competición nacional</h2>
+          <p class="section-desc" id="pillars-desc">
+            Convencidos de que el deporte base es la herramienta pedagógica más potente para la juventud, creamos cantera y hábitos saludables a través de tres ejes complementarios.
+          </p>
+        </div>
+        <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="pilares-content" data-toggle-section>
+          <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+        </button>
+      </div>
+
+      <div id="pilares-content" class="collapsible-content" style="margin-top: 1.5rem;">
+        <div id="pillars-grid" class="pillars-grid"></div>
+      </div>
+    </section>
+
+    <!-- Sección de Artículos y Noticias (Alimentada desde Admin) -->
+    <section id="articulos" class="section">
+      <div class="section-header-row">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="eyebrow" id="articles-eyebrow">Actualidad y Crónicas</span>
+          <h2 class="section-title" id="articles-title">Artículos, Propuestas y Comunicados</h2>
+          <p class="section-desc" id="articles-desc">
+            Proyectos educativos en colegios como Waiso Ipola, crónicas de los torneos en Sipopo y actividades de nuestra Asociación.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <a href="/admin?tab=articles" class="btn btn-soft btn-sm" style="text-decoration: none;">
+            + Publicar artículo
+          </a>
+          <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="articulos-content" data-toggle-section>
+            <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="articulos-content" class="collapsible-content" style="margin-top: 1.5rem;">
+        <div id="articles-grid" class="articles-grid"></div>
+      </div>
+    </section>
+
+    <!-- Competiciones, Torneos y Calendario -->
+    <div class="section-alt">
+      <section id="competiciones" class="section">
+        <div class="section-header-row">
+          <div class="section-header" style="margin-bottom: 0;">
+            <span class="eyebrow" id="comp-eyebrow">Calendario Deportivo</span>
+            <h2 class="section-title" id="comp-title">Torneos Nacionales, Voley Playa, Liga Escolar y CAVB</h2>
+            <p class="section-desc" id="comp-desc">
+              Consulta los torneos anuales organizados por la Asociación Deportiva Locos por el Voleibol.
+            </p>
+          </div>
+          <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="competiciones-content" data-toggle-section>
+            <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+          </button>
+        </div>
+
+        <div id="competiciones-content" class="collapsible-content" style="margin-top: 1.5rem;">
+          <div class="competitions-bar">
+            <div class="filter-tabs" role="tablist" aria-label="Filtrar torneos por categoría">
+              <button type="button" class="filter-btn active" data-filter="all">Todos</button>
+              <button type="button" class="filter-btn" data-filter="playa">Voley Playa Sipopo</button>
+              <button type="button" class="filter-btn" data-filter="nacionales">Torneos Nacionales</button>
+              <button type="button" class="filter-btn" data-filter="escolar">Iniciación y Liga Escolar</button>
+              <button type="button" class="filter-btn" data-filter="internacional">CAVB Zona 4</button>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-sm" data-open-register="torneo">
+              + Inscribir Equipo / Colegio
+            </button>
+          </div>
+
+          <div id="tournaments-grid" class="tournaments-grid" aria-live="polite"></div>
+
+          <!-- Palmarés Voley Playa Sipopo & Memoria de Actividades -->
+          <div id="memoria" class="league-split">
+            <div class="clean-panel">
+              <div class="panel-title">
+                <span id="sipopo-panel-title">🏆 Palmarés Torneo Voley Playa Sipopo (VIII Edición)</span>
+                <span class="city-pill">Desde 2012</span>
+              </div>
+              <p id="sipopo-panel-desc" style="font-size: 0.82rem; color: var(--text-body); margin-bottom: 0.85rem;">
+                Jornada familiar de playa, barbacoa, música y voleibol disputada entre 4 equipos de 6 jugadores (semifinales a 1 set de 21 puntos y final al mejor de 3 sets de 21 puntos):
+              </p>
+              <div style="overflow-x: auto;">
+                <table class="standings-table">
+                  <thead>
+                    <tr>
+                      <th>Puesto</th>
+                      <th>Equipo</th>
+                      <th>Formato</th>
+                      <th>Resultado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="standings-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="clean-panel">
+              <div class="panel-title">
+                <span id="matches-panel-title">📋 Actividades y Partidos Realizados</span>
+                <span class="status-badge live">Memoria Oficial</span>
+              </div>
+              <div id="results-list" class="results-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Galería de Eventos, Torneos y Momentos (Editable desde Admin) -->
+    <section id="galeria-eventos" class="section">
+      <div class="section-header-row">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="eyebrow" id="albums-eyebrow">Momentos y Memoria Gráfica</span>
+          <h2 class="section-title" id="albums-title">Galería de Eventos, Torneos y Actividades</h2>
+          <p class="section-desc" id="albums-desc">
+            Revive en imágenes los torneos de playa en Sipopo, jornadas escolares en centros educativos como Waiso Ipola y los entrenamientos en Don Bosco.
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <a href="/admin?tab=photos" class="btn btn-soft btn-sm" style="text-decoration: none;">
+            📸 Gestionar Álbumes
+          </a>
+          <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="galeria-eventos-content" data-toggle-section>
+            <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="galeria-eventos-content" class="collapsible-content" style="margin-top: 1.5rem;">
+        <div class="filter-tabs" id="album-filter-tabs" role="tablist" aria-label="Filtrar eventos por categoría" style="margin-bottom: 1.25rem;">
+          <button type="button" class="filter-btn active" data-album-filter="all">Todos los Álbumes</button>
+          <button type="button" class="filter-btn" data-album-filter="playa">Voley Playa Sipopo</button>
+          <button type="button" class="filter-btn" data-album-filter="escolar">Talleres Escolares</button>
+          <button type="button" class="filter-btn" data-album-filter="club">Sede Don Bosco</button>
+        </div>
+
+        <div id="event-albums-grid" class="event-albums-grid"></div>
+      </div>
+    </section>
+
+    <!-- Sección: Modelo Operativo Escolar (10-18 años), 11 Colegios y Rehabilitación de Canchas -->
+    <section id="colegios" class="section">
+      <div class="section-header-row">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="eyebrow" id="schools-eyebrow">Red de 11 Colegios y Espacios</span>
+          <h2 class="section-title" id="schools-title">Proyecto de Iniciación Escolar y Rehabilitación de Canchas</h2>
+          <p class="section-desc" id="schools-desc">
+            Facilitamos monitores permanentes, uniformes (titular y reserva), marcadores manuales, postes regulables y acondicionamiento de pistas para consolidar clubes escolares estables.
+          </p>
+        </div>
+        <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="colegios-content" data-toggle-section>
+          <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+        </button>
+      </div>
+
+      <div id="colegios-content" class="collapsible-content" style="margin-top: 1.5rem;">
+        <div class="schools-split" style="margin-top: 0;">
+          <div class="clean-panel">
+            <div class="panel-title">
+              <span>🏫 11 Centros de las Jornadas y Talleres Escolares</span>
+              <span class="city-pill">2 Monitores / Centro</span>
+            </div>
+            <p style="font-size: 0.84rem; color: var(--text-body);">
+              Centros educativos seleccionados para talleres regulares, jornadas de aprendizaje y encuentros amistosos trimestrales intercolegiales:
+            </p>
+            <div id="learning-schools-chips" class="tag-cloud"></div>
+          </div>
+
+          <div class="clean-panel">
+            <div class="panel-title">
+              <span>🛠️ Canchas y Espacios en Adecuación</span>
+              <span class="city-pill">Obra Menor y Equipamiento</span>
+            </div>
+            <p style="font-size: 0.84rem; color: var(--text-body);">
+              Espacios identificados para nivelación de pista, trazado y pintado de líneas, perforación de anclajes e instalación de postes móviles:
+            </p>
+            <div id="rehab-spaces-chips" class="tag-cloud"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sedes y Entrenamientos -->
+    <div class="section-alt">
+      <section id="sedes" class="section">
+        <div class="section-header-row">
+          <div class="section-header" style="margin-bottom: 0;">
+            <span class="eyebrow" id="venues-eyebrow">Entrenamientos y Canchas</span>
+            <h2 class="section-title" id="venues-title">Dónde entrenamos y competimos</h2>
+          </div>
+          <button type="button" class="btn-section-toggle" aria-expanded="true" aria-controls="sedes-content" data-toggle-section>
+            <span class="toggle-text">Plegar</span> <span class="toggle-icon">▲</span>
+          </button>
+        </div>
+
+        <div id="sedes-content" class="collapsible-content" style="margin-top: 1.5rem;">
+          <div id="venues-grid" class="venues-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Contenedor Dinámico para Nuevas Secciones Creadas desde Admin -->
+    <div id="custom-sections-container"></div>
+  </main>
+
+  <!-- Modal Limpio: Inscripción General de Socios y Adultos -->
+  <dialog id="register-modal" class="modal" aria-labelledby="register-modal-title">
+    <div class="modal-header">
+      <h3 id="register-modal-title" class="modal-title">Unirse como Socio / Colaborador — Locos por el Voleibol</h3>
+      <button type="button" class="modal-close" data-close-modal aria-label="Cerrar">×</button>
+    </div>
+    <form id="registration-form" class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reg-name">Nombre completo, Colegio o Entidad *</label>
+          <input id="reg-name" name="fullName" type="text" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="reg-city">Centro / Sede *</label>
+          <select id="reg-city" name="city" class="form-control" required>
+            <option value="Malabo (Don Bosco Elá Nguema)">Malabo (Don Bosco Elá Nguema)</option>
+            <option value="Colegio Waiso Ipola / Escolar">Colegio Waiso Ipola / Escolar</option>
+            <option value="Sipopo (Torneo Voley Playa)">Sipopo (Torneo Voley Playa)</option>
+            <option value="Bata / Otra localidad">Bata / Otra localidad</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reg-phone">Teléfono / WhatsApp (+240) *</label>
+          <input id="reg-phone" name="phone" type="tel" class="form-control" placeholder="+240 222 ..." required />
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Correo electrónico</label>
+          <input id="reg-email" name="email" type="email" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reg-program">¿Cómo deseas participar? *</label>
+        <select id="reg-program" name="program" class="form-control" required>
+          <option value="competitivo">Entrenamientos en Don Bosco (Lunes a Viernes 19:00-21:00)</option>
+          <option value="social">Implantar Taller Escolar en un Colegio (10-18 años)</option>
+          <option value="torneo">Inscripción en Torneos Nacionales o Voley Playa Sipopo</option>
+          <option value="profesional">Cursos Técnicos (Árbitros, Entrenadores, Anotadores)</option>
+          <option value="patrocinador">Socio Colaborador / Patrocinador de Material o Canchas</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="reg-notes">Mensaje o detalle</label>
+        <textarea id="reg-notes" name="notes" rows="2" class="form-control"></textarea>
+      </div>
+
+      <div
+        id="reg-feedback"
+        style="display: none; padding: 0.75rem; border-radius: 8px; background: var(--bg-soft-blue); border: 1px solid var(--border-blue); color: var(--accent-blue-hover); font-size: 0.84rem;"
+      ></div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 0.25rem;">
+        <button type="button" class="btn btn-outline btn-sm" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm">Enviar solicitud</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal Limpio: Ficha de Torneo -->
+  <dialog id="tournament-detail-modal" class="modal" aria-labelledby="detail-modal-title">
+    <div class="modal-header">
+      <h3 id="detail-modal-title" class="modal-title">Detalle de Actividad</h3>
+      <button type="button" class="modal-close" data-close-modal aria-label="Cerrar">×</button>
+    </div>
+    <div id="detail-modal-body" class="modal-body"></div>
+  </dialog>
+
+  <!-- Modal Limpio: Lectura Completa de Artículo -->
+  <dialog id="article-read-modal" class="modal modal-lg" aria-labelledby="article-modal-title">
+    <div class="modal-header">
+      <h3 id="article-modal-title" class="modal-title">Artículo</h3>
+      <button type="button" class="modal-close" data-close-modal aria-label="Cerrar">×</button>
+    </div>
+    <div id="article-modal-body" class="modal-body"></div>
+  </dialog>
+
+  <!-- Modal Limpio: Visor de Fotos en Grande (Lightbox Cinema Fullscreen) -->
+  <dialog id="event-photo-modal" class="modal modal-fullscreen-viewer" aria-labelledby="photo-modal-title">
+    <div class="lightbox-top-bar">
+      <div class="lightbox-info-left">
+        <span class="lightbox-badge-pill" id="lightbox-badge-pill">FOTO DE GALERÍA</span>
+        <h3 id="photo-modal-title" class="lightbox-title">Visor de Fotos</h3>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span id="lightbox-counter" class="lightbox-counter-pill">1 / 1</span>
+        <button type="button" class="lightbox-close-btn" data-close-modal aria-label="Cerrar visor (Esc)">✕</button>
+      </div>
+    </div>
+
+    <div class="lightbox-main-stage">
+      <button type="button" class="lightbox-btn-nav lightbox-btn-prev" id="lightbox-prev-btn" aria-label="Foto anterior (Detrás)" title="Foto anterior (Detrás) · Tecla Flecha Izquierda">
+        <span class="lightbox-nav-arrow">‹</span>
+        <span class="lightbox-nav-label">Detrás</span>
+      </button>
+
+      <div class="lightbox-image-wrapper" id="lightbox-img-wrapper" title="Haz clic para avanzar a la siguiente foto">
+        <img id="lightbox-img" src="" alt="Foto en grande" class="lightbox-large-img" />
+      </div>
+
+      <button type="button" class="lightbox-btn-nav lightbox-btn-next" id="lightbox-next-btn" aria-label="Foto siguiente (Delante)" title="Foto siguiente (Delante) · Tecla Flecha Derecha">
+        <span class="lightbox-nav-label">Delante</span>
+        <span class="lightbox-nav-arrow">›</span>
+      </button>
+    </div>
+
+    <div class="lightbox-bottom-panel">
+      <div class="lightbox-bottom-info">
+        <strong id="lightbox-caption" class="lightbox-caption-text"></strong>
+        <p id="lightbox-sub" class="lightbox-sub-text"></p>
+      </div>
+      
+      <div class="lightbox-bottom-controls">
+        <button type="button" class="btn-lightbox-bottom" id="lightbox-bottom-prev-btn" title="Foto anterior (Detrás)">
+          ◀ Detrás
+        </button>
+        <button type="button" class="btn-lightbox-bottom btn-lightbox-primary" id="lightbox-bottom-next-btn" title="Foto siguiente (Delante)">
+          Delante ▶
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+
+
+
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="/assets/logo-oficial.png" alt="Escudo Oficial Locos por el Voleibol" width="38" height="38" loading="lazy" />
+        <span id="footer-brand-text"><strong>Asociación Deportiva “Locos por el Voleibol”</strong> · Nacida en 2010 · Malabo, Guinea Ecuatorial</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span id="footer-contact-text">Telf.: <a href="tel:+240222596935" style="color: var(--accent-blue); text-decoration: none; font-weight: 600;">+240 222 59 69 35</a> · Polideportivo Don Bosco (Elá Nguema)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>

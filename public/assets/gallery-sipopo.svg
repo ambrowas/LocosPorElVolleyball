@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" role="img" aria-label="Torneo de Voley Playa Sipopo desde 2012">
+  <rect width="800" height="520" fill="#F0F9FF" />
+  <rect x="36" y="36" width="728" height="448" rx="20" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2" />
+  <!-- Sea & Beach Horizon -->
+  <path d="M36 310 Q400 285 764 310 L764 464 Q764 484 744 484 L56 484 Q36 484 36 464 Z" fill="#E0F2FE" />
+  <!-- Blue Beach Boundary Ribbons -->
+  <polygon points="150,435 650,435 570,325 230,325" fill="#FFFFFF" stroke="#0284C7" stroke-width="3" />
+  <!-- Beach Net -->
+  <rect x="185" y="200" width="7" height="175" rx="3" fill="#0F172A" />
+  <rect x="608" y="200" width="7" height="175" rx="3" fill="#0F172A" />
+  <rect x="192" y="210" width="416" height="54" fill="#BAE6FD" fill-opacity="0.55" stroke="#0284C7" stroke-width="2" />
+  <!-- Sun / Volleyball -->
+  <circle cx="580" cy="125" r="34" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5" />
+  <!-- Label -->
+  <rect x="64" y="64" width="350" height="52" rx="12" fill="#F0F9FF" stroke="#BAE6FD" />
+  <text x="84" y="87" fill="#0284C7" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1">TRADICIÓN DESDE 2012 · BIOKO</text>
+  <text x="84" y="105" fill="#0F172A" font-family="Inter, sans-serif" font-size="14" font-weight="700">Torneo Anual Voley Playa Sipopo</text>
+</svg>

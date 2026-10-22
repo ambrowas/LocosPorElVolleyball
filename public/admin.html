@@ -1,0 +1,2688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración · Asociación Deportiva Locos por el Voleibol</title>
+  <link rel="icon" type="image/png" href="/assets/logo-oficial.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-outer-dark: #061325;
+      --bg-navy: #0d2a4a;
+      --bg-card: #0a1f38;
+      --bg-input: #061527;
+      --electric-blue: #1e6091;
+      --sky-subtitle: #60a5fa;
+      --mimosa: #eab308;
+      --mimosa-bright: #facc15;
+      --white: #ffffff;
+      --silver: #cbd5e1;
+      --silver-muted: #94a3b8;
+      --border-navy: #17375e;
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 10%, #113259 0%, #081b33 55%, #051020 100%);
+      color: var(--white);
+      min-height: 100vh;
+      padding: 1.5rem 1.25rem 3.5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .admin-shell {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Cabecera Principal */
+    .admin-header {
+      background: linear-gradient(180deg, #0d2847 0%, #091c34 100%);
+      border: 1px solid rgba(30, 96, 145, 0.55);
+      border-bottom: 2px solid var(--mimosa);
+      border-radius: 16px;
+      padding: 1.25rem 1.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.15rem;
+      margin-bottom: 1.35rem;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.65);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .logo-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #07172b;
+      border: 1.5px solid rgba(234, 179, 8, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      flex-shrink: 0;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .club-pill {
+      display: inline-block;
+      background: rgba(234, 179, 8, 0.14);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      color: var(--mimosa-bright);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 0.25rem;
+    }
+
+    .admin-title {
+      font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    .admin-sub {
+      font-size: 0.76rem;
+      color: var(--sky-subtitle);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .btn-mimosa {
+      background: linear-gradient(135deg, var(--mimosa-bright) 0%, var(--mimosa) 100%);
+      color: #061325;
+      border: none;
+      border-radius: 8px;
+      padding: 0.58rem 1.05rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-mimosa:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .btn-outline-blue {
+      background: rgba(30, 96, 145, 0.25);
+      color: var(--white);
+      border: 1px solid var(--electric-blue);
+      border-radius: 8px;
+      padding: 0.58rem 0.95rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-outline-blue:hover {
+      background: rgba(30, 96, 145, 0.45);
+      border-color: var(--sky-subtitle);
+      color: #ffffff;
+    }
+
+    .btn-del {
+      background: rgba(220, 38, 38, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-del:hover {
+      background: rgba(220, 38, 38, 0.35);
+      color: #fee2e2;
+    }
+
+    /* Pestañas de Navegación */
+    .admin-nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.35rem;
+      background: rgba(13, 40, 71, 0.75);
+      border: 1px solid rgba(30, 96, 145, 0.45);
+      border-radius: 12px;
+      padding: 0.6rem 0.75rem;
+      align-items: center;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--silver);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+      background: rgba(30, 96, 145, 0.25);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--mimosa-bright) 0%, var(--mimosa) 100%);
+      color: #061325;
+      border-color: transparent;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tarjetas y Cajas de Administración */
+    .admin-card {
+      background: linear-gradient(180deg, #0d2847 0%, #091c34 100%);
+      border: 1px solid var(--border-navy);
+      border-radius: 14px;
+      padding: 1.35rem 1.65rem;
+      margin-bottom: 1.35rem;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--silver-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+
+    /* Formularios */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--silver);
+      margin-bottom: 0.35rem;
+    }
+
+    .input-dark,
+    .select-dark,
+    .textarea-dark {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-navy);
+      border-radius: 8px;
+      padding: 0.68rem 0.9rem;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.88rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-dark:focus,
+    .select-dark:focus,
+    .textarea-dark:focus {
+      outline: none;
+      border-color: var(--sky-subtitle);
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+
+    .textarea-dark {
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    /* Métricas */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(180deg, #0d2847 0%, #091c34 100%);
+      border: 1px solid var(--border-navy);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+    }
+
+    .stat-num {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--mimosa-bright);
+      display: block;
+      line-height: 1.15;
+    }
+
+    .stat-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--silver);
+    }
+
+    /* Barra de Filtros */
+    .filters-bar {
+      background: linear-gradient(180deg, #0d2847 0%, #091c34 100%);
+      border: 1px solid var(--border-navy);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Tablas */
+    .table-card {
+      background: linear-gradient(180deg, #0d2847 0%, #091c34 100%);
+      border: 1px solid var(--border-navy);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+      font-size: 0.86rem;
+    }
+
+    thead th {
+      background: #061527;
+      color: var(--mimosa-bright);
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1.5px solid var(--border-navy);
+    }
+
+    tbody td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(23, 55, 94, 0.65);
+      vertical-align: middle;
+      color: var(--white);
+    }
+
+    tbody tr:hover td {
+      background: rgba(30, 96, 145, 0.14);
+    }
+
+    .student-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--mimosa-bright);
+      background: #061527;
+    }
+
+    .pill-badge {
+      display: inline-block;
+      background: rgba(30, 96, 145, 0.35);
+      border: 1px solid var(--sky-subtitle);
+      color: var(--white);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .wa-link {
+      color: var(--mimosa-bright);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .wa-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Listas de Elementos CMS */
+    .cms-item-card {
+      background: #061527;
+      border: 1px solid var(--border-navy);
+      border-radius: 10px;
+      padding: 0.9rem 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .cms-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .cms-thumb {
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #0b223d;
+      border: 1px solid rgba(30, 96, 145, 0.5);
+      flex-shrink: 0;
+    }
+
+    .cms-item-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.2rem;
+    }
+
+    .cms-item-sub {
+      font-size: 0.76rem;
+      color: var(--silver-muted);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .toast-msg {
+      display: none;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid var(--success);
+      color: #6ee7b7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 0.75rem;
+    }
+
+    /* Drag & Drop */
+    .drag-drop-zone {
+      border: 2px dashed rgba(96, 165, 250, 0.45);
+      background: rgba(6, 21, 39, 0.6);
+      border-radius: 14px;
+      padding: 2.2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .drag-drop-zone:hover,
+    .drag-drop-zone.dragover {
+      border-color: var(--mimosa-bright);
+      background: rgba(234, 179, 8, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -8px rgba(234, 179, 8, 0.3);
+    }
+
+    .drag-drop-icon {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 0.6rem;
+      line-height: 1;
+    }
+
+    .drag-drop-prompt {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .drag-drop-sub {
+      font-size: 0.78rem;
+      color: var(--silver-muted);
+    }
+
+    .dropped-previews-grid {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    .dropped-preview-item {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--mimosa-bright);
+      background: #061527;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .dropped-preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .drop-preview-remove {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 20px;
+      text-align: center;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drop-preview-remove:hover {
+      background: #dc2626;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 760px) {
+      .filters-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA DE ACCESO RESTRINGIDO -->
+  <div id="admin-auth-gate" style="max-width: 440px; margin: 4.5rem auto; background: linear-gradient(180deg, #0d2847 0%, #091c34 100%); border: 1px solid rgba(30, 96, 145, 0.55); border-top: 3px solid var(--mimosa); border-radius: 16px; padding: 2.2rem 1.8rem; text-align: center; box-shadow: 0 24px 50px -12px rgba(0,0,0,0.7);">
+    <div class="logo-box" style="margin: 0 auto 1.15rem; width: 72px; height: 72px;">
+      <img src="/assets/logo-oficial.png" alt="Logo Oficial Locos por el Voleibol" width="60" height="60" />
+    </div>
+    <span class="club-pill">ACCESO EXCLUSIVO</span>
+    <h1 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0 0.45rem; text-transform: uppercase;">ADMINISTRACIÓN DE LA ASOCIACIÓN</h1>
+    <p style="font-size: 0.84rem; color: var(--silver); margin-bottom: 1.35rem; line-height: 1.45;">
+      Introduce la contraseña de coordinación para gestionar los alumnos inscritos y editar el contenido de la web pública.
+    </p>
+    <form id="admin-gate-form" style="display: flex; flex-direction: column; gap: 0.85rem;">
+      <input
+        type="password"
+        id="admin-gate-pass"
+        class="input-dark"
+        placeholder="Introduce la contraseña..."
+        style="text-align: center; font-size: 0.95rem; padding: 0.8rem;"
+        required
+      />
+      <button type="submit" class="btn-mimosa" style="justify-content: center; padding: 0.85rem; font-size: 0.9rem;">
+        🔓 Entrar al Panel de Control
+      </button>
+      <p id="admin-gate-error" style="display: none; color: #f87171; font-size: 0.82rem; font-weight: 700; margin-top: 0.25rem;">
+        Contraseña incorrecta. Por favor, verifica e inténtalo de nuevo.
+      </p>
+    </form>
+  </div>
+
+  <!-- PANEL DE ADMINISTRACIÓN COMPLETO (PÁGINA COMPLETA) -->
+  <div class="admin-shell" id="admin-protected-content" style="display: none;">
+    <header class="admin-header">
+      <div class="brand-left">
+        <div class="logo-box">
+          <img src="/assets/logo-oficial.png" alt="Logo Oficial Locos por el Voleibol" width="56" height="56" />
+        </div>
+        <div>
+          <span class="club-pill">LOCOS POR EL VOLEIBOL · ADMINISTRACIÓN CENTRAL</span>
+          <h1 class="admin-title">PANEL DE CONTROL GENERAL</h1>
+          <p class="admin-sub">ALUMNOS INSCRITOS · EDICIÓN WEB · GALERÍA · ARTÍCULOS</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="/" class="btn-outline-blue" style="border-color: rgba(96, 165, 250, 0.6);">🌐 Ver Web Pública →</a>
+        <button type="button" class="btn-outline-blue" id="admin-logout-btn">🔒 Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN ENTRE SECCIONES DE ADMINISTRACIÓN -->
+    <nav class="admin-nav-tabs" role="tablist">
+      <button type="button" class="tab-btn active" data-tab="students">📋 Alumnos Inscritos (Firestore)</button>
+      <button type="button" class="tab-btn" data-tab="sections">✏️ Editar Secciones de la Web</button>
+      <button type="button" class="tab-btn" data-tab="photos">📸 Galería y Álbumes de Eventos</button>
+      <button type="button" class="tab-btn" data-tab="articles">📰 Artículos y Noticias</button>
+      <button type="button" class="tab-btn" data-tab="custom">➕ Nuevas Secciones</button>
+      <button type="button" class="tab-btn" data-tab="settings">🔑 Clave y Respaldo</button>
+    </nav>
+
+    <!-- TAB 1: ALUMNOS INSCRITOS (FIRESTORE) -->
+    <section id="panel-students" class="tab-panel active">
+      <div class="stats-grid" aria-label="Resumen de inscripciones">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-label">Total Alumnos Inscritos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-waiso">0</span>
+          <span class="stat-label">Colegio E Waiso Ipola</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-sub14">0</span>
+          <span class="stat-label">Infantil / Cadete (≤ 14 años)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-sub18">0</span>
+          <span class="stat-label">Juvenil (≥ 15 años)</span>
+        </div>
+      </div>
+
+      <div class="filters-bar" aria-label="Filtros de búsqueda">
+        <div>
+          <label for="search-input">BUSCAR ALUMNO, COLEGIO O TELÉFONO</label>
+          <input
+            type="search"
+            id="search-input"
+            class="input-dark"
+            placeholder="Buscar por nombre, apellidos, colegio o WhatsApp..."
+          />
+        </div>
+        <div>
+          <label for="school-filter">FILTRAR POR CENTRO ESCOLAR</label>
+          <select id="school-filter" class="select-dark">
+            <option value="todos">Todos los centros</option>
+          </select>
+        </div>
+        <div>
+          <label for="course-filter">FILTRAR POR CURSO</label>
+          <select id="course-filter" class="select-dark">
+            <option value="todos">Todos los cursos</option>
+            <option value="5º Primaria">5º Primaria</option>
+            <option value="6º Primaria">6º Primaria</option>
+            <option value="1º ESBA">1º ESBA</option>
+            <option value="2º ESBA">2º ESBA</option>
+            <option value="3º ESBA">3º ESBA</option>
+            <option value="4º ESBA">4º ESBA</option>
+            <option value="1º Bachillerato">1º Bachillerato</option>
+            <option value="2º Bachillerato">2º Bachillerato</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 0.85rem;">
+        <button type="button" class="btn-mimosa" id="export-csv-btn">📥 Descargar Tabla Completa en Excel (.CSV)</button>
+      </div>
+
+      <div class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>FOTO</th>
+                <th>NOMBRE Y APELLIDOS</th>
+                <th>EDAD / NACIMIENTO</th>
+                <th>SEXO</th>
+                <th>CENTRO ESCOLAR</th>
+                <th>CURSO ACTUAL</th>
+                <th>TELÉFONO / WHATSAPP</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="inscritos-tbody">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 2rem; color: var(--silver-muted);">
+                  Conectando en tiempo real con Firebase Firestore...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: EDITAR SECCIONES DE LA WEB -->
+    <section id="panel-sections" class="tab-panel">
+      <div class="admin-card">
+        <h2 class="card-title">✏️ Editor de Secciones de la Web Pública</h2>
+        <p class="card-desc">
+          Modifica los textos principales, titulares y contenidos de cada bloque de la web. Los cambios se guardan y reflejan inmediatamente en la página principal.
+        </p>
+
+        <div class="form-group" style="max-width: 480px;">
+          <label for="cms-section-selector">Selecciona la sección que deseas editar:</label>
+          <select id="cms-section-selector" class="select-dark" style="font-weight: 700; color: var(--mimosa-bright);">
+            <option value="hero">1. Cabecera Principal (Hero) y Cifras Clave</option>
+            <option value="pillars">2. Quiénes Somos y Los 3 Ejes de Acción</option>
+            <option value="tournaments">3. Torneos y Calendario Deportivo</option>
+            <option value="schools">4. Proyecto Escolar (11 Colegios y Canchas)</option>
+            <option value="venues">5. Sedes de Entrenamiento y Contacto</option>
+          </select>
+        </div>
+
+        <div id="section-editor-fields" style="margin-top: 1.25rem;"></div>
+
+        <div id="section-saved-toast" class="toast-msg">
+          ✓ ¡Cambios en la sección guardados correctamente!
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: GESTIÓN DE GALERÍA, DRAG & DROP Y ÁLBUMES DE EVENTOS -->
+    <section id="panel-photos" class="tab-panel">
+      
+      <!-- SUB-SECCIÓN 1: SUBIR Y ARRASTRAR FOTOS (DRAG & DROP) -->
+      <div class="admin-card">
+        <h2 class="card-title" id="photo-form-heading">📥 Subir y Arrastrar Fotos (Drag & Drop)</h2>
+        <p class="card-desc">
+          Puedes arrastrar fotos directamente desde tu ordenador o hacer clic en el recuadro. Selecciona si deseas añadir las fotos a la <strong>Portada Principal</strong> o a un <strong>Álbum de Evento</strong> específico.
+        </p>
+
+        <form id="admin-photo-form">
+          <input type="hidden" id="photo-edit-index" value="" />
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="photo-target-dest">Destino de las Fotos *</label>
+              <select id="photo-target-dest" class="select-dark" style="font-weight: 700; color: var(--mimosa-bright);">
+                <option value="carousel">🌟 Portada Principal (Carrusel Superior de la Web)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="photo-location">Lugar / Sede (Etiqueta)</label>
+              <input id="photo-location" type="text" class="input-dark" placeholder="Ej. Playa de Sipopo / Don Bosco Elá Nguema" />
+            </div>
+          </div>
+
+          <!-- ZONA DE ARRASTRE INTERACTIVA (DRAG & DROP) -->
+          <div class="drag-drop-zone" id="admin-photo-drop-zone">
+            <input type="file" id="admin-photo-file-input" accept="image/*" multiple style="display:none;" />
+            <span class="drag-drop-icon">📷</span>
+            <div class="drag-drop-prompt">Arrastra y suelta tus fotos aquí</div>
+            <div class="drag-drop-sub">o haz clic para explorar archivos (JPG, PNG, WebP) · Admite subir varias fotos al mismo tiempo</div>
+            <div id="admin-drop-previews" class="dropped-previews-grid"></div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="photo-title">Título o Pie de Foto</label>
+              <input id="photo-title" type="text" class="input-dark" placeholder="Ej. Final del torneo y entrega de trofeos" />
+            </div>
+            <div class="form-group">
+              <label for="photo-url">O pegar URL de imagen existente</label>
+              <input id="photo-url" type="text" class="input-dark" placeholder="/assets/gallery-sipopo.svg o https://..." />
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.6rem; align-items: center; margin-top: 0.5rem;">
+            <button type="button" class="btn-outline-blue" id="photo-cancel-edit-btn" style="display: none;">Cancelar Edición</button>
+            <button type="submit" class="btn-mimosa" id="photo-save-btn">Guardar Foto(s)</button>
+          </div>
+          <div id="photo-saved-toast" class="toast-msg">
+            ✓ ¡Foto(s) guardadas y sincronizadas correctamente!
+          </div>
+        </form>
+      </div>
+
+      <!-- SUB-SECCIÓN 2: CONFIGURACIÓN DE ÁLBUMES Y EVENTOS -->
+      <div class="admin-card">
+        <h2 class="card-title" id="album-form-heading">📁 Configurar Álbumes y Eventos</h2>
+        <p class="card-desc">
+          Crea y organiza eventos deportivos (ej. «Torneo Voley Playa Sipopo 2026», «Taller Escolar Waiso Ipola») para que los visitantes puedan ver todas las fotos en la Galería de Eventos.
+        </p>
+
+        <form id="admin-album-form">
+          <input type="hidden" id="album-edit-id" value="" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="album-title">Título del Álbum / Evento *</label>
+              <input id="album-title" type="text" class="input-dark" placeholder="Ej. Torneo Anual de Voley Playa Sipopo" required />
+            </div>
+            <div class="form-group">
+              <label for="album-category">Categoría del Evento *</label>
+              <select id="album-category" class="select-dark" required>
+                <option value="playa">Voley Playa Sipopo</option>
+                <option value="escolar">Iniciación y Deporte Base Escolar</option>
+                <option value="club">Sede Central Don Bosco</option>
+                <option value="nacionales">Torneos Nacionales</option>
+                <option value="internacional">Internacional / CAVB</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="album-date">Fecha o Temporada *</label>
+              <input id="album-date" type="text" class="input-dark" placeholder="Ej. Enero · Playa de Sipopo" required />
+            </div>
+            <div class="form-group">
+              <label for="album-location">Lugar / Sede *</label>
+              <input id="album-location" type="text" class="input-dark" placeholder="Ej. Playa de Sipopo, Bioko" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="album-desc">Descripción o Resumen del Evento *</label>
+            <textarea id="album-desc" rows="3" class="textarea-dark" required placeholder="Detalla la actividad, los participantes y el resultado..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="album-cover-file">Subir Imagen de Portada del Álbum</label>
+              <input id="album-cover-file" type="file" accept="image/*" class="input-dark" />
+            </div>
+            <div class="form-group">
+              <label for="album-cover-url">O URL de Portada</label>
+              <input id="album-cover-url" type="text" class="input-dark" placeholder="/assets/gallery-sipopo.svg" />
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.6rem; align-items: center;">
+            <button type="button" class="btn-outline-blue" id="album-cancel-edit-btn" style="display: none;">Cancelar</button>
+            <button type="submit" class="btn-mimosa">Guardar Álbum de Evento</button>
+          </div>
+          <div id="album-saved-toast" class="toast-msg">
+            ✓ ¡Álbum de evento guardado y disponible en la galería pública!
+          </div>
+        </form>
+      </div>
+
+      <!-- LISTA DE ÁLBUMES CONFIGURADOS -->
+      <div class="admin-card">
+        <h3 class="card-title">Álbumes de Eventos Activos</h3>
+        <p class="card-desc">Lista de eventos visibles en la sección de Galería de la web principal.</p>
+        <div id="admin-albums-list"></div>
+      </div>
+
+      <!-- VISOR Y ELIMINACIÓN DE FOTOS -->
+      <div class="admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+          <h3 class="card-title" style="margin-bottom: 0;">🖼️ Fotos Guardadas</h3>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label for="photos-filter-select" style="margin-bottom: 0; font-size: 0.74rem;">Ver fotos de:</label>
+            <select id="photos-filter-select" class="select-dark" style="width: auto; padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+              <option value="carousel">Portada Principal (Carrusel)</option>
+            </select>
+          </div>
+        </div>
+        <p class="card-desc">Elimina o inspecciona las imágenes actualmente almacenadas.</p>
+        <div id="admin-photos-list"></div>
+      </div>
+
+    </section>
+
+    <!-- TAB 4: ARTÍCULOS Y NOTICIAS -->
+    <section id="panel-articles" class="tab-panel">
+      <div class="admin-card">
+        <h2 class="card-title" id="article-form-heading">📰 Publicar o Editar Artículo / Crónica</h2>
+        <p class="card-desc">
+          Escribe comunicados oficiales, propuestas educativas o crónicas deportivas para la sección de Actualidad.
+        </p>
+
+        <form id="admin-article-form">
+          <input type="hidden" id="article-edit-id" value="" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="art-title">Título del Artículo *</label>
+              <input id="art-title" type="text" class="input-dark" placeholder="Ej. Crónica del Torneo de Voley Playa en Sipopo" required />
+            </div>
+            <div class="form-group">
+              <label for="art-category">Categoría *</label>
+              <input id="art-category" type="text" class="input-dark" placeholder="Ej. Deporte Base / Voley Playa" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="art-date">Fecha o Edición *</label>
+              <input id="art-date" type="text" class="input-dark" placeholder="Ej. Enero · Playa de Sipopo" required />
+            </div>
+            <div class="form-group">
+              <label for="art-file">Subir Imagen de Portada</label>
+              <input id="art-file" type="file" accept="image/*" class="input-dark" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="art-img-url">O URL de Imagen de Portada</label>
+            <input id="art-img-url" type="text" class="input-dark" placeholder="/assets/gallery-sipopo.svg" />
+          </div>
+
+          <div class="form-group">
+            <label for="art-excerpt">Resumen breve (mostrado en la tarjeta principal) *</label>
+            <textarea id="art-excerpt" rows="2" class="textarea-dark" required placeholder="Breve resumen de 2 líneas..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="art-content">Contenido completo del artículo *</label>
+            <textarea id="art-content" rows="6" class="textarea-dark" required placeholder="Texto completo del artículo, párrafos, clasificaciones..."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.6rem; align-items: center;">
+            <button type="button" class="btn-outline-blue" id="art-cancel-edit-btn" style="display: none;">Cancelar Edición</button>
+            <button type="submit" class="btn-mimosa">Guardar Artículo</button>
+          </div>
+          <div id="art-saved-toast" class="toast-msg">
+            ✓ ¡Artículo guardado y publicado en la web!
+          </div>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h3 class="card-title">Artículos actualmente publicados</h3>
+        <p class="card-desc">Gestiona los comunicados visibles para los visitantes.</p>
+        <div id="admin-articles-list"></div>
+      </div>
+    </section>
+
+    <!-- TAB 5: NUEVAS SECCIONES PERSONALIZADAS -->
+    <section id="panel-custom" class="tab-panel">
+      <div class="admin-card">
+        <h2 class="card-title" id="custom-form-heading">➕ Crear Nueva Sección en la Web</h2>
+        <p class="card-desc">
+          Añade nuevas áreas informativas (ej. «Junta Directiva», «Patrocinadores», «Estatutos») que aparecerán con su propio enlace en el menú superior.
+        </p>
+
+        <form id="admin-custom-form">
+          <input type="hidden" id="custom-edit-id" value="" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cust-nav">Nombre en el Menú Superior *</label>
+              <input id="cust-nav" type="text" class="input-dark" placeholder="Ej. Patrocinadores" required />
+            </div>
+            <div class="form-group">
+              <label for="cust-eyebrow">Etiqueta Superior (Eyebrow)</label>
+              <input id="cust-eyebrow" type="text" class="input-dark" placeholder="Ej. Colaboraciones" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-title">Título Principal de la Sección *</label>
+            <input id="cust-title" type="text" class="input-dark" placeholder="Ej. Entidades que Apoyan el Voleibol Base" required />
+          </div>
+
+          <div class="form-group">
+            <label for="cust-desc">Descripción o Párrafo Introductorio *</label>
+            <textarea id="cust-desc" rows="3" class="textarea-dark" required placeholder="Explicación detallada..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="cust-items">Tarjetas dentro de la sección (1 por línea, formato: Título | Descripción)</label>
+            <textarea
+              id="cust-items"
+              rows="4"
+              class="textarea-dark"
+              placeholder="GETESA | Apoyo en la dotación de material y balones&#10;Comité Olímpico (COGE) | Certificación de monitores y entrenadores"
+            ></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.6rem; align-items: center;">
+            <button type="button" class="btn-outline-blue" id="cust-cancel-edit-btn" style="display: none;">Cancelar</button>
+            <button type="submit" class="btn-mimosa">Publicar Sección en la Web</button>
+          </div>
+          <div id="cust-saved-toast" class="toast-msg">
+            ✓ ¡Sección publicada en la web y añadida al menú!
+          </div>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h3 class="card-title">Secciones personalizadas activas</h3>
+        <div id="admin-custom-list"></div>
+      </div>
+    </section>
+
+    <!-- TAB 6: CLAVE Y RESPALDO -->
+    <section id="panel-settings" class="tab-panel">
+      <div class="admin-card">
+        <h2 class="card-title">🔑 Seguridad de la Administración</h2>
+        <p class="card-desc">Cambia la contraseña de acceso exclusivo al panel de control.</p>
+
+        <form id="admin-password-form" style="max-width: 440px;">
+          <div class="form-group">
+            <label for="new-pass-input">Nueva Contraseña de Administración *</label>
+            <input id="new-pass-input" type="password" class="input-dark" placeholder="Escribe la nueva contraseña..." required />
+          </div>
+          <button type="submit" class="btn-mimosa">Guardar Nueva Contraseña</button>
+          <div id="pass-saved-toast" class="toast-msg">
+            ✓ ¡Contraseña de administración actualizada correctamente!
+          </div>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2 class="card-title">💾 Copia de Seguridad y Restauración</h2>
+        <p class="card-desc">
+          Descarga un archivo JSON con todo el contenido editado de la web (secciones, fotos, artículos y personalizaciones) o restaura los datos oficiales originales si lo necesitas.
+        </p>
+
+        <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
+          <button type="button" class="btn-mimosa" id="export-json-backup-btn">
+            📥 Descargar Respaldo JSON Completo
+          </button>
+          <button type="button" class="btn-del" id="reset-defaults-btn" style="padding: 0.65rem 1.15rem; font-size: 0.84rem;">
+            ↺ Restaurar Contenido Oficial por Defecto
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL VISOR DE FOTOS EN GRANDE (ADMIN) -->
+  <dialog id="admin-photo-viewer-modal" style="background:#040e1b; color:#ffffff; border:1.5px solid rgba(30, 96, 145, 0.7); border-radius:18px; max-width:1100px; width:94vw; max-height:92vh; padding:0; margin:auto; box-shadow:0 30px 80px rgba(0,0,0,0.9); flex-direction:column; overflow:hidden;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:0.85rem 1.4rem; background:#061527; border-bottom:1px solid rgba(23, 55, 94, 0.7);">
+      <div>
+        <span style="font-size:0.68rem; font-weight:800; text-transform:uppercase; color:#facc15; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.45); padding:0.18rem 0.55rem; border-radius:999px;" id="admin-viewer-badge">VISOR DE FOTO</span>
+        <h3 id="admin-viewer-title" style="font-size:1.05rem; font-weight:800; color:#ffffff; margin:0.2rem 0 0;">Foto en Grande</h3>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <span id="admin-viewer-counter" style="font-size:0.84rem; font-weight:800; color:#facc15; background:#0c2747; border:1.5px solid #1e6091; padding:0.35rem 0.85rem; border-radius:999px;">1 / 1</span>
+        <button type="button" id="admin-viewer-close-btn" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.25); color:#ffffff; font-size:1.15rem; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+      </div>
+    </div>
+
+    <div style="flex:1; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden; background:radial-gradient(circle at center, #0a2544 0%, #030a13 100%); padding:0.75rem 1.2rem; min-height:0; user-select:none;">
+      <button type="button" id="admin-viewer-prev-btn" style="background:#0c2747; border:1.5px solid #1e6091; color:#ffffff; padding:0.6rem 1.1rem; border-radius:999px; font-weight:800; font-size:0.9rem; cursor:pointer; z-index:5; display:flex; align-items:center; gap:0.4rem;" title="Foto anterior (Detrás)">
+        ‹ Detrás
+      </button>
+      <div style="flex:1; height:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:0.5rem; cursor:pointer;" id="admin-viewer-img-wrap" title="Clic para siguiente foto">
+        <img id="admin-viewer-img" src="" alt="Foto en grande" style="max-height:68vh; max-width:100%; object-fit:contain; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,0.8); border:1px solid rgba(30,96,145,0.4);" />
+      </div>
+      <button type="button" id="admin-viewer-next-btn" style="background:linear-gradient(135deg, #facc15 0%, #eab308 100%); color:#061325; border:none; padding:0.6rem 1.1rem; border-radius:999px; font-weight:800; font-size:0.9rem; cursor:pointer; z-index:5; display:flex; align-items:center; gap:0.4rem;" title="Foto siguiente (Delante)">
+        Delante ›
+      </button>
+    </div>
+
+    <div style="background:#061527; border-top:1px solid rgba(23, 55, 94, 0.7); padding:0.85rem 1.4rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+      <div>
+        <strong id="admin-viewer-caption" style="font-size:0.98rem; font-weight:700; color:#facc15; display:block;"></strong>
+        <p id="admin-viewer-sub" style="font-size:0.82rem; color:#cbd5e1; margin-top:0.2rem; margin-bottom:0;"></p>
+      </div>
+      <div style="display:flex; gap:0.65rem; align-items:center;">
+        <button type="button" id="admin-viewer-bottom-prev" style="background:#0c2747; border:1px solid #1e6091; color:#ffffff; padding:0.45rem 0.9rem; border-radius:8px; font-weight:700; font-size:0.82rem; cursor:pointer;">◀ Detrás</button>
+        <button type="button" id="admin-viewer-bottom-next" style="background:linear-gradient(135deg, #facc15 0%, #eab308 100%); color:#061325; border:none; padding:0.45rem 0.9rem; border-radius:8px; font-weight:800; font-size:0.82rem; cursor:pointer;">Delante ▶</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- SCRIPT DE ESTADO COMPARTIDO -->
+  <script src="/js/state.js"></script>
+
+  <!-- MÓDULO JS PRINCIPAL DE ADMINISTRACIÓN -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      onSnapshot,
+      query,
+      orderBy,
+      deleteDoc,
+      doc
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      projectId: "locos-por-el-voley-ge",
+      appId: "1:364125782015:web:686fffd0c1cdf9ca2631ca",
+      storageBucket: "locos-por-el-voley-ge.firebasestorage.app",
+      apiKey: "AIzaSyCxOFDq7KC7OgbqYL11mIWuZeQHA_piGmM",
+      authDomain: "locos-por-el-voley-ge.firebaseapp.com",
+      messagingSenderId: "364125782015"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const COLLECTION_NAME = "inscripciones_waiso_ipola";
+    const LOCAL_BACKUP_KEY = "inscripciones_waiso_ipola_backup_v1";
+
+    let allRecords = [];
+    let CMS_STATE = window.loadState ? window.loadState() : {};
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function compressImageFile(file, maxWidth = 1000, quality = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const w = Math.round(img.width * scale);
+            const h = Math.round(img.height * scale);
+            const canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    /* ----------------------------------------------------
+       AUTENTICACIÓN Y SEGURIDAD
+       ---------------------------------------------------- */
+    const authGate = document.getElementById("admin-auth-gate");
+    const protectedContent = document.getElementById("admin-protected-content");
+    const gateForm = document.getElementById("admin-gate-form");
+    const gatePass = document.getElementById("admin-gate-pass");
+    const gateError = document.getElementById("admin-gate-error");
+
+    function checkAuth() {
+      const isLogged = window.isAdminLoggedIn ? window.isAdminLoggedIn() : sessionStorage.getItem(SESSION_KEY) === "1";
+      authGate.style.display = isLogged ? "none" : "block";
+      protectedContent.style.display = isLogged ? "block" : "none";
+    }
+
+    gateForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const expected = window.getAdminPassword ? window.getAdminPassword() : (localStorage.getItem(PASS_KEY) || "locos2026");
+      if (gatePass.value === expected) {
+        sessionStorage.setItem(SESSION_KEY, "1");
+        gateError.style.display = "none";
+        gatePass.value = "";
+        checkAuth();
+        initAdminData();
+      } else {
+        gateError.style.display = "block";
+      }
+    });
+
+    document.getElementById("admin-logout-btn").addEventListener("click", () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      checkAuth();
+    });
+
+    /* ----------------------------------------------------
+       SISTEMA DE PESTAÑAS (TABS)
+       ---------------------------------------------------- */
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabId);
+      });
+      document.querySelectorAll(".tab-panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.id === `panel-${tabId}`);
+      });
+
+      // Actualizar URL sin recargar
+      const url = new URL(window.location);
+      url.searchParams.set("tab", tabId);
+      window.history.replaceState({}, "", url);
+
+      if (tabId === "sections") {
+        renderSectionEditor(document.getElementById("cms-section-selector").value);
+      } else if (tabId === "photos") {
+        updateAlbumSelectOptions();
+        renderAlbumsList();
+        renderPhotosList();
+      } else if (tabId === "articles") {
+        renderArticlesList();
+      } else if (tabId === "custom") {
+        renderCustomList();
+      }
+    }
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+    });
+
+    /* ----------------------------------------------------
+       FIRESTORE: ALUMNOS INSCRITOS
+       ---------------------------------------------------- */
+    function getLocalBackup() {
+      try {
+        return JSON.parse(localStorage.getItem(LOCAL_BACKUP_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function updateSchoolFilterOptions() {
+      const sel = document.getElementById("school-filter");
+      const currentVal = sel.value;
+      const schools = Array.from(
+        new Set(allRecords.map((r) => (r.centroEscolar || "E WAISO IPOLA").toUpperCase()))
+      ).sort();
+      sel.innerHTML =
+        '<option value="todos">Todos los centros</option>' +
+        schools
+          .map((s) => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`)
+          .join("");
+      if (schools.includes(currentVal)) {
+        sel.value = currentVal;
+      }
+    }
+
+    function renderStudentsTable() {
+      document.getElementById("stat-total").textContent = String(allRecords.length);
+      document.getElementById("stat-waiso").textContent = String(
+        allRecords.filter((r) =>
+          String(r.centroEscolar || "").toUpperCase().includes("WAISO")
+        ).length
+      );
+      document.getElementById("stat-sub14").textContent = String(
+        allRecords.filter((r) => Number(r.edad) <= 14).length
+      );
+      document.getElementById("stat-sub18").textContent = String(
+        allRecords.filter((r) => Number(r.edad) >= 15).length
+      );
+
+      const q = (document.getElementById("search-input").value || "").trim().toLowerCase();
+      const schoolFilter = document.getElementById("school-filter").value;
+      const courseFilter = document.getElementById("course-filter").value;
+
+      const filtered = allRecords.filter((r) => {
+        const matchSchool =
+          schoolFilter === "todos" ||
+          String(r.centroEscolar || "").toUpperCase() === schoolFilter;
+        const matchCourse =
+          courseFilter === "todos" || r.curso === courseFilter;
+        const hay = `${r.nombre || ""} ${r.apellidos || ""} ${r.centroEscolar || ""} ${r.curso || ""} ${r.telefono || ""}`.toLowerCase();
+        return matchSchool && matchCourse && (!q || hay.includes(q));
+      });
+
+      const tbody = document.getElementById("inscritos-tbody");
+      if (!filtered.length) {
+        tbody.innerHTML =
+          '<tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--silver-muted);">No hay alumnos inscritos que coincidan con la búsqueda.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered
+        .map(
+          (r) => `
+        <tr>
+          <td>
+            <img
+              src="${escapeHtml(r.fotoUrl || "/assets/logo-oficial.png")}"
+              alt="${escapeHtml(r.nombre)}"
+              class="student-avatar"
+            />
+          </td>
+          <td>
+            <strong style="font-size:0.92rem;">${escapeHtml(r.nombre)} ${escapeHtml(r.apellidos)}</strong>
+            <span style="display:block; font-size:0.73rem; color:var(--mimosa-bright);">
+              ¡Quiero jugar al Voleibol! 🏐
+            </span>
+          </td>
+          <td>
+            <span class="pill-badge">${escapeHtml(r.edad)} años</span>
+            <span style="display:block; font-size:0.74rem; color:var(--silver-muted); margin-top:0.25rem;">
+              ${escapeHtml(r.fechaNacimiento || "")}
+            </span>
+          </td>
+          <td>${escapeHtml(r.sexo)}</td>
+          <td><strong style="color:var(--sky-subtitle);">${escapeHtml(r.centroEscolar)}</strong></td>
+          <td>${escapeHtml(r.curso)}</td>
+          <td>
+            <a
+              class="wa-link"
+              href="https://wa.me/${escapeHtml(String(r.telefono || "").replace(/[^0-9]/g, ""))}"
+              target="_blank"
+              rel="noopener"
+            >
+              💬 ${escapeHtml(r.telefono)}
+            </a>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn-del"
+              data-del-id="${escapeHtml(r.id || "")}"
+              data-del-folio="${escapeHtml(r.folio || "")}"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      `
+        )
+        .join("");
+
+      tbody.querySelectorAll("[data-del-id]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          if (!confirm("¿Deseas eliminar este registro de alumno?")) return;
+          const id = btn.dataset.delId;
+          const folio = btn.dataset.delFolio;
+          const rest = getLocalBackup().filter((x) => x.id !== id && x.folio !== folio);
+          localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(rest));
+          if (id && !id.startsWith("local-")) {
+            try {
+              await deleteDoc(doc(db, COLLECTION_NAME, id));
+            } catch (err) {
+              console.warn(err);
+            }
+          }
+        });
+      });
+    }
+
+    function initFirestoreListener() {
+      const qRef = query(collection(db, COLLECTION_NAME), orderBy("createdAt", "desc"));
+      onSnapshot(
+        qRef,
+        (snap) => {
+          const fsDocs = snap.docs.map((d) => {
+            const data = d.data();
+            return {
+              id: d.id,
+              ...data,
+              createdAtIso: data.createdAt?.toDate
+                ? data.createdAt.toDate().toISOString().slice(0, 10)
+                : ""
+            };
+          });
+          const localDocs = getLocalBackup();
+          const seenFolios = new Set(fsDocs.map((x) => x.folio).filter(Boolean));
+          allRecords = [
+            ...fsDocs,
+            ...localDocs.filter((x) => !x.folio || !seenFolios.has(x.folio))
+          ];
+          updateSchoolFilterOptions();
+          renderStudentsTable();
+        },
+        (err) => {
+          console.warn("Cargando desde respaldo local:", err);
+          allRecords = getLocalBackup();
+          updateSchoolFilterOptions();
+          renderStudentsTable();
+        }
+      );
+
+      document.getElementById("search-input").addEventListener("input", renderStudentsTable);
+      document.getElementById("school-filter").addEventListener("change", renderStudentsTable);
+      document.getElementById("course-filter").addEventListener("change", renderStudentsTable);
+
+      document.getElementById("export-csv-btn").addEventListener("click", () => {
+        const headers = [
+          "Nombre",
+          "Apellidos",
+          "Fecha de Nacimiento",
+          "Edad",
+          "Sexo",
+          "Telefono / WhatsApp",
+          "Centro Escolar",
+          "Curso Actual",
+          "Quiero Jugar al Voleibol"
+        ];
+        const rows = allRecords.map((r) => [
+          r.nombre || "",
+          r.apellidos || "",
+          r.fechaNacimiento || "",
+          r.edad ?? "",
+          r.sexo || "",
+          r.telefono || "",
+          r.centroEscolar || "",
+          r.curso || "",
+          r.quiereJugar ? "SI" : "NO"
+        ]);
+        const csv =
+          "\uFEFF" +
+          [headers, ...rows]
+            .map((row) =>
+              row.map((cell) => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")
+            )
+            .join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "inscripciones_waiso_ipola.csv";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    /* ----------------------------------------------------
+       TAB 2: EDITOR DE SECCIONES (CMS)
+       ---------------------------------------------------- */
+    const sectionEditorContainer = document.getElementById("section-editor-fields");
+    const sectionSelector = document.getElementById("cms-section-selector");
+
+    function renderSectionEditor(secKey) {
+      if (!sectionEditorContainer) return;
+      let formHtml = "";
+
+      if (secKey === "hero") {
+        const h = CMS_STATE.hero || {};
+        formHtml = `
+          <div class="form-group">
+            <label for="edit-hero-eyebrow">Etiqueta Superior (Eyebrow)</label>
+            <input id="edit-hero-eyebrow" class="input-dark" value="${escapeHtml(h.eyebrow)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-hero-title">Titular Principal de la Web</label>
+            <input id="edit-hero-title" class="input-dark" value="${escapeHtml(h.title)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-hero-lead">Texto de Introducción (Lead)</label>
+            <textarea id="edit-hero-lead" rows="4" class="textarea-dark">${escapeHtml(h.lead)}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Cifras y Datos Clave (1 por línea, formato: Cifra | Descripción)</label>
+            <textarea id="edit-hero-metrics" rows="4" class="textarea-dark">${(h.metrics || []).map((m) => `${m.num} | ${m.label}`).join("\n")}</textarea>
+          </div>
+        `;
+      } else if (secKey === "pillars") {
+        const p = CMS_STATE.pillarsSection || {};
+        formHtml = `
+          <div class="form-group">
+            <label for="edit-pillars-eyebrow">Etiqueta Superior</label>
+            <input id="edit-pillars-eyebrow" class="input-dark" value="${escapeHtml(p.eyebrow)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-pillars-title">Título de Quiénes Somos</label>
+            <input id="edit-pillars-title" class="input-dark" value="${escapeHtml(p.title)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-pillars-desc">Descripción General</label>
+            <textarea id="edit-pillars-desc" rows="3" class="textarea-dark">${escapeHtml(p.desc)}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Los 3 Ejes de Acción (Tarjetas)</label>
+            ${(p.items || [])
+              .map(
+                (it, i) => `
+              <div style="background:#061527; border:1px solid var(--border-navy); border-radius:8px; padding:0.85rem; margin-bottom:0.75rem;">
+                <label>Eje ${i + 1} - Titular</label>
+                <input class="input-dark edit-pillar-title" data-idx="${i}" value="${escapeHtml(it.title)}" style="margin-bottom:0.5rem;" />
+                <label>Descripción</label>
+                <textarea rows="2" class="textarea-dark edit-pillar-desc" data-idx="${i}">${escapeHtml(it.desc)}</textarea>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `;
+      } else if (secKey === "tournaments") {
+        const tSec = CMS_STATE.tournaments || [];
+        formHtml = `
+          <p style="font-size:0.84rem; color:var(--silver); margin-bottom:1rem;">
+            Se muestran los torneos y actividades oficiales en el calendario de la web:
+          </p>
+          ${tSec
+            .map(
+              (t, i) => `
+            <div style="background:#061527; border:1px solid var(--border-navy); border-radius:8px; padding:0.85rem; margin-bottom:0.75rem;">
+              <label>Torneo ${i + 1} - Nombre</label>
+              <input class="input-dark edit-tourn-title" data-idx="${i}" value="${escapeHtml(t.title)}" style="margin-bottom:0.5rem;" />
+              <div class="form-row" style="margin-bottom:0.5rem;">
+                <div>
+                  <label>Fechas</label>
+                  <input class="input-dark edit-tourn-dates" data-idx="${i}" value="${escapeHtml(t.dates)}" />
+                </div>
+                <div>
+                  <label>Lugar / Cancha</label>
+                  <input class="input-dark edit-tourn-venue" data-idx="${i}" value="${escapeHtml(t.venue)}" />
+                </div>
+              </div>
+              <label>Descripción</label>
+              <textarea rows="2" class="textarea-dark edit-tourn-desc" data-idx="${i}">${escapeHtml(t.description)}</textarea>
+            </div>
+          `
+            )
+            .join("")}
+        `;
+      } else if (secKey === "schools") {
+        const sSec = CMS_STATE.schoolsSection || {};
+        formHtml = `
+          <div class="form-group">
+            <label for="edit-schools-eyebrow">Etiqueta Superior</label>
+            <input id="edit-schools-eyebrow" class="input-dark" value="${escapeHtml(sSec.eyebrow)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-schools-title">Título del Proyecto Escolar</label>
+            <input id="edit-schools-title" class="input-dark" value="${escapeHtml(sSec.title)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-schools-desc">Descripción General</label>
+            <textarea id="edit-schools-desc" rows="3" class="textarea-dark">${escapeHtml(sSec.desc)}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Centros Educativos Participantes (1 por línea)</label>
+            <textarea id="edit-schools-list" rows="5" class="textarea-dark">${(sSec.schools || []).join("\n")}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Canchas y Espacios en Adecuación (1 por línea)</label>
+            <textarea id="edit-rehab-list" rows="5" class="textarea-dark">${(sSec.rehabSpaces || []).join("\n")}</textarea>
+          </div>
+        `;
+      } else if (secKey === "venues") {
+        const v = CMS_STATE.venuesSection || {};
+        formHtml = `
+          <div class="form-group">
+            <label for="edit-venues-eyebrow">Etiqueta Superior</label>
+            <input id="edit-venues-eyebrow" class="input-dark" value="${escapeHtml(v.eyebrow)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-venues-title">Título de Sedes y Canchas</label>
+            <input id="edit-venues-title" class="input-dark" value="${escapeHtml(v.title)}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-venues-phone">Teléfono de Contacto Oficial (+240)</label>
+            <input id="edit-venues-phone" class="input-dark" value="${escapeHtml(v.phone)}" />
+          </div>
+          <div class="form-group">
+            <label>Sedes Registradas</label>
+            ${(v.items || [])
+              .map(
+                (vt, i) => `
+              <div style="background:#061527; border:1px solid var(--border-navy); border-radius:8px; padding:0.85rem; margin-bottom:0.75rem;">
+                <label>Sede ${i + 1} - Nombre</label>
+                <input class="input-dark edit-venue-name" data-idx="${i}" value="${escapeHtml(vt.name)}" style="margin-bottom:0.5rem;" />
+                <label>Horario / Días</label>
+                <input class="input-dark edit-venue-sched" data-idx="${i}" value="${escapeHtml(vt.schedule)}" style="margin-bottom:0.5rem;" />
+                <label>Descripción</label>
+                <textarea rows="2" class="textarea-dark edit-venue-desc" data-idx="${i}">${escapeHtml(vt.desc)}</textarea>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
+      sectionEditorContainer.innerHTML = `
+        ${formHtml}
+        <div style="display:flex; justify-content:flex-end; margin-top:1.25rem;">
+          <button type="button" class="btn-mimosa" id="save-section-btn">💾 Guardar Cambios en la Web</button>
+        </div>
+      `;
+
+      document.getElementById("save-section-btn")?.addEventListener("click", () => {
+        saveCurrentSection(secKey);
+      });
+    }
+
+    function saveCurrentSection(secKey) {
+      if (secKey === "hero") {
+        CMS_STATE.hero.eyebrow = document.getElementById("edit-hero-eyebrow").value.trim();
+        CMS_STATE.hero.title = document.getElementById("edit-hero-title").value.trim();
+        CMS_STATE.hero.lead = document.getElementById("edit-hero-lead").value.trim();
+        const metricsRaw = document.getElementById("edit-hero-metrics").value.trim();
+        CMS_STATE.hero.metrics = metricsRaw
+          .split("\n")
+          .filter(Boolean)
+          .map((line) => {
+            const [num, label] = line.split("|").map((s) => s.trim());
+            return { num: num || "", label: label || "" };
+          });
+      } else if (secKey === "pillars") {
+        CMS_STATE.pillarsSection.eyebrow = document.getElementById("edit-pillars-eyebrow").value.trim();
+        CMS_STATE.pillarsSection.title = document.getElementById("edit-pillars-title").value.trim();
+        CMS_STATE.pillarsSection.desc = document.getElementById("edit-pillars-desc").value.trim();
+        document.querySelectorAll(".edit-pillar-title").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.pillarsSection.items[idx]) {
+            CMS_STATE.pillarsSection.items[idx].title = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-pillar-desc").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.pillarsSection.items[idx]) {
+            CMS_STATE.pillarsSection.items[idx].desc = inp.value.trim();
+          }
+        });
+      } else if (secKey === "tournaments") {
+        document.querySelectorAll(".edit-tourn-title").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.tournaments[idx]) {
+            CMS_STATE.tournaments[idx].title = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-tourn-dates").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.tournaments[idx]) {
+            CMS_STATE.tournaments[idx].dates = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-tourn-venue").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.tournaments[idx]) {
+            CMS_STATE.tournaments[idx].venue = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-tourn-desc").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.tournaments[idx]) {
+            CMS_STATE.tournaments[idx].description = inp.value.trim();
+          }
+        });
+      } else if (secKey === "schools") {
+        CMS_STATE.schoolsSection.eyebrow = document.getElementById("edit-schools-eyebrow").value.trim();
+        CMS_STATE.schoolsSection.title = document.getElementById("edit-schools-title").value.trim();
+        CMS_STATE.schoolsSection.desc = document.getElementById("edit-schools-desc").value.trim();
+        CMS_STATE.schoolsSection.schools = document.getElementById("edit-schools-list").value.split("\n").map((s) => s.trim()).filter(Boolean);
+        CMS_STATE.schoolsSection.rehabSpaces = document.getElementById("edit-rehab-list").value.split("\n").map((s) => s.trim()).filter(Boolean);
+      } else if (secKey === "venues") {
+        CMS_STATE.venuesSection.eyebrow = document.getElementById("edit-venues-eyebrow").value.trim();
+        CMS_STATE.venuesSection.title = document.getElementById("edit-venues-title").value.trim();
+        CMS_STATE.venuesSection.phone = document.getElementById("edit-venues-phone").value.trim();
+        document.querySelectorAll(".edit-venue-name").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.venuesSection.items[idx]) {
+            CMS_STATE.venuesSection.items[idx].name = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-venue-sched").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.venuesSection.items[idx]) {
+            CMS_STATE.venuesSection.items[idx].schedule = inp.value.trim();
+          }
+        });
+        document.querySelectorAll(".edit-venue-desc").forEach((inp) => {
+          const idx = Number(inp.dataset.idx);
+          if (CMS_STATE.venuesSection.items[idx]) {
+            CMS_STATE.venuesSection.items[idx].desc = inp.value.trim();
+          }
+        });
+      }
+
+      window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+      const toast = document.getElementById("section-saved-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(() => (toast.style.display = "none"), 3000);
+      }
+    }
+
+    sectionSelector?.addEventListener("change", (e) => {
+      renderSectionEditor(e.target.value);
+    });
+
+    /* ----------------------------------------------------
+       TAB 3: GESTIÓN DE GALERÍA, DRAG & DROP Y ÁLBUMES DE EVENTOS (CMS)
+       ---------------------------------------------------- */
+    const photoForm = document.getElementById("admin-photo-form");
+    const photoCancelBtn = document.getElementById("photo-cancel-edit-btn");
+    const photoSaveBtn = document.getElementById("photo-save-btn");
+    const photosList = document.getElementById("admin-photos-list");
+    const photoTargetDest = document.getElementById("photo-target-dest");
+    const photosFilterSelect = document.getElementById("photos-filter-select");
+    const photoDropZone = document.getElementById("admin-photo-drop-zone");
+    const photoFileInput = document.getElementById("admin-photo-file-input");
+    const dropPreviews = document.getElementById("admin-drop-previews");
+
+    const albumForm = document.getElementById("admin-album-form");
+    const albumCancelBtn = document.getElementById("album-cancel-edit-btn");
+    const albumsList = document.getElementById("admin-albums-list");
+
+    const CATEGORY_LABELS = {
+      playa: "Voley Playa Sipopo",
+      escolar: "Iniciación Escolar",
+      club: "Sede Don Bosco",
+      nacionales: "Torneo Nacional",
+      internacional: "Internacional / CAVB"
+    };
+
+    let stagedDropFiles = [];
+
+    // Actualiza los selectores desplegables de destino y filtro de fotos
+    function updateAlbumSelectOptions() {
+      const albums = CMS_STATE.eventAlbums || [];
+      const currentDest = photoTargetDest ? photoTargetDest.value : "carousel";
+      const currentFilter = photosFilterSelect ? photosFilterSelect.value : "carousel";
+
+      if (photoTargetDest) {
+        photoTargetDest.innerHTML = `
+          <option value="carousel">🌟 Portada Principal (Carrusel Superior de la Web)</option>
+          ${albums
+            .map(
+              (a) =>
+                `<option value="${escapeHtml(a.id)}">📁 Álbum: ${escapeHtml(a.title)} (${(a.photos && a.photos.length) || 0} fotos)</option>`
+            )
+            .join("")}
+        `;
+        if (currentDest && (currentDest === "carousel" || albums.some((a) => a.id === currentDest))) {
+          photoTargetDest.value = currentDest;
+        }
+      }
+
+      if (photosFilterSelect) {
+        photosFilterSelect.innerHTML = `
+          <option value="carousel">Portada Principal (Carrusel)</option>
+          ${albums
+            .map(
+              (a) =>
+                `<option value="${escapeHtml(a.id)}">📁 Álbum: ${escapeHtml(a.title)}</option>`
+            )
+            .join("")}
+        `;
+        if (currentFilter && (currentFilter === "carousel" || albums.some((a) => a.id === currentFilter))) {
+          photosFilterSelect.value = currentFilter;
+        }
+      }
+    }
+
+    // Renderizado de las miniaturas arrastradas en la zona Drag & Drop
+    function renderDropPreviews() {
+      if (!dropPreviews) return;
+      if (!stagedDropFiles.length) {
+        dropPreviews.innerHTML = "";
+        return;
+      }
+
+      dropPreviews.innerHTML = stagedDropFiles
+        .map((f, idx) => {
+          const previewUrl = URL.createObjectURL(f);
+          const sizeKb = Math.round(f.size / 1024);
+          return `
+            <div class="dropped-preview-item" title="${escapeHtml(f.name)} (${sizeKb} KB)">
+              <img src="${previewUrl}" class="dropped-preview-img" alt="${escapeHtml(f.name)}" />
+              <button type="button" class="drop-preview-remove" data-remove-staged-idx="${idx}" title="Quitar foto">✕</button>
+            </div>
+          `;
+        })
+        .join("");
+
+      dropPreviews.querySelectorAll("[data-remove-staged-idx]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const idx = Number(btn.dataset.removeStagedIdx);
+          stagedDropFiles.splice(idx, 1);
+          renderDropPreviews();
+        });
+      });
+    }
+
+    function addFilesToStage(fileList) {
+      if (!fileList || !fileList.length) return;
+      for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        if (file.type.startsWith("image/")) {
+          stagedDropFiles.push(file);
+        }
+      }
+      renderDropPreviews();
+    }
+
+    // Configuración de eventos Drag & Drop
+    if (photoDropZone) {
+      ["dragenter", "dragover"].forEach((evtName) => {
+        photoDropZone.addEventListener(evtName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          photoDropZone.classList.add("dragover");
+        });
+      });
+
+      ["dragleave", "dragend", "drop"].forEach((evtName) => {
+        photoDropZone.addEventListener(evtName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          photoDropZone.classList.remove("dragover");
+        });
+      });
+
+      photoDropZone.addEventListener("drop", (e) => {
+        if (e.dataTransfer && e.dataTransfer.files) {
+          addFilesToStage(e.dataTransfer.files);
+        }
+      });
+
+      photoDropZone.addEventListener("click", (e) => {
+        if (e.target.closest(".drop-preview-remove")) return;
+        photoFileInput?.click();
+      });
+    }
+
+    photoFileInput?.addEventListener("change", (e) => {
+      if (e.target.files) {
+        addFilesToStage(e.target.files);
+        photoFileInput.value = "";
+      }
+    });
+
+    // Envío del formulario de fotos (para Carrusel o Álbum)
+    photoForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const targetDest = photoTargetDest.value;
+      const editIdx = document.getElementById("photo-edit-index").value;
+      const title = document.getElementById("photo-title").value.trim();
+      const location = document.getElementById("photo-location").value.trim();
+      const urlInput = document.getElementById("photo-url").value.trim();
+
+      // Si estamos en modo edición
+      if (editIdx !== "") {
+        const idx = Number(editIdx);
+        let finalUrl = urlInput;
+        if (stagedDropFiles.length > 0) {
+          finalUrl = await compressImageFile(stagedDropFiles[0]);
+        }
+
+        if (targetDest === "carousel") {
+          const current = CMS_STATE.photos[idx];
+          if (!finalUrl && current) finalUrl = current.url;
+          if (current) {
+            CMS_STATE.photos[idx] = {
+              title: title || current.title,
+              location: location || current.location,
+              desc: current.desc || "",
+              url: finalUrl
+            };
+          }
+        } else {
+          const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === targetDest);
+          if (album && album.photos && album.photos[idx]) {
+            if (!finalUrl) finalUrl = album.photos[idx].url;
+            album.photos[idx] = {
+              url: finalUrl,
+              caption: title || album.photos[idx].caption,
+              date: location || album.photos[idx].date
+            };
+          }
+        }
+
+        window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+        photoForm.reset();
+        document.getElementById("photo-edit-index").value = "";
+        document.getElementById("photo-form-heading").textContent = "📥 Subir y Arrastrar Fotos (Drag & Drop)";
+        photoCancelBtn.style.display = "none";
+        stagedDropFiles = [];
+        renderDropPreviews();
+        updateAlbumSelectOptions();
+        renderAlbumsList();
+        renderPhotosList();
+
+        const toast = document.getElementById("photo-saved-toast");
+        if (toast) {
+          toast.textContent = "✓ ¡Foto actualizada correctamente!";
+          toast.style.display = "block";
+          setTimeout(() => (toast.style.display = "none"), 3000);
+        }
+        return;
+      }
+
+      // Modo nueva subida (puede ser múltiple por Drag & Drop)
+      if (!stagedDropFiles.length && !urlInput) {
+        alert("Por favor arrastra o selecciona al menos una imagen, o introduce una URL.");
+        return;
+      }
+
+      if (photoSaveBtn) {
+        photoSaveBtn.disabled = true;
+        photoSaveBtn.textContent = "Comprimiendo y guardando...";
+      }
+
+      try {
+        if (stagedDropFiles.length > 0) {
+          for (const file of stagedDropFiles) {
+            const compressedUrl = await compressImageFile(file);
+            const photoTitle = title || file.name.replace(/\.[^/.]+$/, "");
+
+            if (targetDest === "carousel") {
+              if (!CMS_STATE.photos) CMS_STATE.photos = [];
+              CMS_STATE.photos.unshift({
+                title: photoTitle,
+                location: location || "Malabo · Guinea Ecuatorial",
+                desc: "",
+                url: compressedUrl
+              });
+            } else {
+              const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === targetDest);
+              if (album) {
+                if (!album.photos) album.photos = [];
+                album.photos.push({
+                  url: compressedUrl,
+                  caption: photoTitle,
+                  date: location || album.date
+                });
+                if (!album.coverUrl || album.coverUrl.includes("gallery-")) {
+                  album.coverUrl = compressedUrl;
+                }
+              }
+            }
+          }
+        } else if (urlInput) {
+          const photoTitle = title || "Foto de Voleibol";
+          if (targetDest === "carousel") {
+            if (!CMS_STATE.photos) CMS_STATE.photos = [];
+            CMS_STATE.photos.unshift({
+              title: photoTitle,
+              location: location || "Malabo · Guinea Ecuatorial",
+              desc: "",
+              url: urlInput
+            });
+          } else {
+            const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === targetDest);
+            if (album) {
+              if (!album.photos) album.photos = [];
+              album.photos.push({
+                url: urlInput,
+                caption: photoTitle,
+                date: location || album.date
+              });
+            }
+          }
+        }
+
+        window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+        photoForm.reset();
+        document.getElementById("photo-edit-index").value = "";
+        document.getElementById("photo-form-heading").textContent = "📥 Subir y Arrastrar Fotos (Drag & Drop)";
+        photoCancelBtn.style.display = "none";
+        stagedDropFiles = [];
+        renderDropPreviews();
+
+        // Si se guardó en un álbum, sincronizar el visor con ese álbum
+        if (targetDest !== "carousel" && photosFilterSelect) {
+          photosFilterSelect.value = targetDest;
+        }
+
+        updateAlbumSelectOptions();
+        renderAlbumsList();
+        renderPhotosList();
+
+        const toast = document.getElementById("photo-saved-toast");
+        if (toast) {
+          toast.textContent = "✓ ¡Foto(s) guardadas y sincronizadas correctamente!";
+          toast.style.display = "block";
+          setTimeout(() => (toast.style.display = "none"), 3000);
+        }
+      } catch (err) {
+        console.error("Error al guardar fotos:", err);
+        alert("Ocurrió un error al procesar las imágenes.");
+      } finally {
+        if (photoSaveBtn) {
+          photoSaveBtn.disabled = false;
+          photoSaveBtn.textContent = "Guardar Foto(s)";
+        }
+      }
+    });
+
+    photoCancelBtn?.addEventListener("click", () => {
+      photoForm.reset();
+      document.getElementById("photo-edit-index").value = "";
+      document.getElementById("photo-form-heading").textContent = "📥 Subir y Arrastrar Fotos (Drag & Drop)";
+      photoCancelBtn.style.display = "none";
+      stagedDropFiles = [];
+      renderDropPreviews();
+    });
+
+    // Gestión de Álbumes (CRUD)
+    function renderAlbumsList() {
+      if (!albumsList) return;
+      const albums = CMS_STATE.eventAlbums || [];
+      if (!albums.length) {
+        albumsList.innerHTML = '<p style="color:var(--silver-muted); font-size:0.85rem;">No hay álbumes creados aún. Crea el primero con el formulario de arriba.</p>';
+        return;
+      }
+
+      albumsList.innerHTML = albums
+        .map(
+          (a) => `
+        <div class="cms-item-card">
+          <div class="cms-item-left">
+            <img src="${escapeHtml(a.coverUrl || "/assets/gallery-donbosco.svg")}" alt="${escapeHtml(a.title)}" class="cms-thumb" />
+            <div>
+              <div class="cms-item-title">
+                ${escapeHtml(a.title)}
+                <span class="pill-badge" style="margin-left:0.4rem;">${escapeHtml(a.categoryLabel || a.category)}</span>
+                <span class="pill-badge" style="margin-left:0.3rem; border-color:var(--mimosa-bright); color:var(--mimosa-bright);">📷 ${(a.photos && a.photos.length) || 0} fotos</span>
+              </div>
+              <span class="cms-item-sub">📅 ${escapeHtml(a.date)} · 📍 ${escapeHtml(a.location)} · ${escapeHtml(a.description || "")}</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-shrink:0; align-items:center;">
+            <button type="button" class="btn-outline-blue" data-add-to-album="${escapeHtml(a.id)}" style="font-size:0.78rem; padding:0.35rem 0.65rem;">
+              ➕ Añadir Fotos
+            </button>
+            <button type="button" class="btn-outline-blue" data-edit-album="${escapeHtml(a.id)}" style="font-size:0.78rem; padding:0.35rem 0.65rem;">
+              Editar
+            </button>
+            <button type="button" class="btn-del" data-del-album="${escapeHtml(a.id)}" style="font-size:0.78rem; padding:0.35rem 0.65rem;">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+
+      albumsList.querySelectorAll("[data-add-to-album]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.addToAlbum;
+          if (photoTargetDest) photoTargetDest.value = id;
+          if (photosFilterSelect) photosFilterSelect.value = id;
+          renderPhotosList();
+          window.scrollTo({ top: photoForm.offsetTop - 30, behavior: "smooth" });
+        });
+      });
+
+      albumsList.querySelectorAll("[data-edit-album]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.editAlbum;
+          const a = (CMS_STATE.eventAlbums || []).find((x) => x.id === id);
+          if (!a) return;
+          document.getElementById("album-edit-id").value = a.id;
+          document.getElementById("album-title").value = a.title;
+          document.getElementById("album-category").value = a.category;
+          document.getElementById("album-date").value = a.date;
+          document.getElementById("album-location").value = a.location;
+          document.getElementById("album-desc").value = a.description;
+          document.getElementById("album-cover-url").value = a.coverUrl.startsWith("data:") ? "" : a.coverUrl;
+          document.getElementById("album-form-heading").textContent = "✏️ Editar Álbum de Evento";
+          albumCancelBtn.style.display = "inline-flex";
+          window.scrollTo({ top: albumForm.offsetTop - 30, behavior: "smooth" });
+        });
+      });
+
+      albumsList.querySelectorAll("[data-del-album]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.delAlbum;
+          const a = (CMS_STATE.eventAlbums || []).find((x) => x.id === id);
+          if (!confirm(`¿Deseas eliminar el álbum "${a?.title || id}" y todas sus fotos asociadas?`)) return;
+          CMS_STATE.eventAlbums = (CMS_STATE.eventAlbums || []).filter((x) => x.id !== id);
+          window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+          updateAlbumSelectOptions();
+          renderAlbumsList();
+          renderPhotosList();
+        });
+      });
+    }
+
+    albumCancelBtn?.addEventListener("click", () => {
+      albumForm.reset();
+      document.getElementById("album-edit-id").value = "";
+      document.getElementById("album-form-heading").textContent = "📁 Configurar Álbumes y Eventos";
+      albumCancelBtn.style.display = "none";
+    });
+
+    albumForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById("album-edit-id").value;
+      const title = document.getElementById("album-title").value.trim();
+      const category = document.getElementById("album-category").value;
+      const date = document.getElementById("album-date").value.trim();
+      const location = document.getElementById("album-location").value.trim();
+      const desc = document.getElementById("album-desc").value.trim();
+      const coverFile = document.getElementById("album-cover-file");
+      const coverUrlInput = document.getElementById("album-cover-url").value.trim();
+
+      let finalCover = coverUrlInput;
+      if (coverFile.files && coverFile.files[0]) {
+        finalCover = await compressImageFile(coverFile.files[0]);
+      }
+      if (!finalCover && editId) {
+        const exist = (CMS_STATE.eventAlbums || []).find((x) => x.id === editId);
+        if (exist) finalCover = exist.coverUrl;
+      }
+      if (!finalCover) {
+        finalCover = "/assets/gallery-donbosco.svg";
+      }
+
+      if (!CMS_STATE.eventAlbums) CMS_STATE.eventAlbums = [];
+
+      if (editId) {
+        const idx = CMS_STATE.eventAlbums.findIndex((x) => x.id === editId);
+        if (idx !== -1) {
+          CMS_STATE.eventAlbums[idx].title = title;
+          CMS_STATE.eventAlbums[idx].category = category;
+          CMS_STATE.eventAlbums[idx].categoryLabel = CATEGORY_LABELS[category] || category;
+          CMS_STATE.eventAlbums[idx].date = date;
+          CMS_STATE.eventAlbums[idx].location = location;
+          CMS_STATE.eventAlbums[idx].description = desc;
+          CMS_STATE.eventAlbums[idx].coverUrl = finalCover;
+        }
+      } else {
+        const newId = `album-${Date.now()}`;
+        CMS_STATE.eventAlbums.unshift({
+          id: newId,
+          title,
+          category,
+          categoryLabel: CATEGORY_LABELS[category] || category,
+          date,
+          location,
+          description: desc,
+          coverUrl: finalCover,
+          photos: [
+            {
+              url: finalCover,
+              caption: title,
+              date: date
+            }
+          ]
+        });
+      }
+
+      window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+      albumForm.reset();
+      document.getElementById("album-edit-id").value = "";
+      document.getElementById("album-form-heading").textContent = "📁 Configurar Álbumes y Eventos";
+      albumCancelBtn.style.display = "none";
+      updateAlbumSelectOptions();
+      renderAlbumsList();
+      renderPhotosList();
+
+      const toast = document.getElementById("album-saved-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(() => (toast.style.display = "none"), 3000);
+      }
+    });
+
+    // Visualización y eliminación de fotos guardadas (filtrado por destino)
+    function renderPhotosList() {
+      if (!photosList) return;
+      const filter = photosFilterSelect ? photosFilterSelect.value : "carousel";
+
+      if (filter === "carousel") {
+        const photos = CMS_STATE.photos || [];
+        if (!photos.length) {
+          photosList.innerHTML = '<p style="color:var(--silver-muted); font-size:0.85rem;">No hay fotos en el carrusel de portada.</p>';
+          return;
+        }
+        photosList.innerHTML = photos
+          .map(
+            (p, idx) => `
+          <div class="cms-item-card">
+            <div class="cms-item-left">
+              <img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.title)}" class="cms-thumb" data-view-photo="${idx}" data-source="carousel" title="Haz clic para ver foto en grande" style="cursor:zoom-in;" />
+              <div>
+                <div class="cms-item-title">${escapeHtml(p.title)} <span class="pill-badge" style="margin-left:0.4rem;">Carrusel Portada</span></div>
+                <span class="cms-item-sub">${escapeHtml(p.location)} · ${escapeHtml(p.desc || "")}</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.45rem; flex-shrink:0;">
+              <button type="button" class="btn-outline-blue" data-edit-photo="${idx}" data-source="carousel">Editar</button>
+              <button type="button" class="btn-del" data-del-photo="${idx}" data-source="carousel">Eliminar</button>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      } else {
+        const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === filter);
+        const photos = album ? album.photos || [] : [];
+        if (!photos.length) {
+          photosList.innerHTML = `
+            <div style="text-align:center; padding:1.5rem; color:var(--silver-muted); font-size:0.85rem;">
+              <p>Este álbum no tiene fotos aún.</p>
+              <button type="button" class="btn-outline-blue" style="margin-top:0.6rem; font-size:0.8rem;" onclick="document.getElementById('photo-target-dest').value='${escapeHtml(filter)}'; window.scrollTo({top: document.getElementById('admin-photo-form').offsetTop - 30, behavior:'smooth'});">
+                📥 Subir o arrastrar fotos a este álbum
+              </button>
+            </div>
+          `;
+          return;
+        }
+        photosList.innerHTML = photos
+          .map(
+            (p, idx) => `
+          <div class="cms-item-card">
+            <div class="cms-item-left">
+              <img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption || album.title)}" class="cms-thumb" data-view-photo="${idx}" data-source="${escapeHtml(filter)}" title="Haz clic para ver foto en grande" style="cursor:zoom-in;" />
+              <div>
+                <div class="cms-item-title">${escapeHtml(p.caption || album.title)} <span class="pill-badge" style="margin-left:0.4rem;">Álbum: ${escapeHtml(album.title)}</span></div>
+                <span class="cms-item-sub">📅 ${escapeHtml(p.date || album.date)} · 📍 ${escapeHtml(album.location)}</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.45rem; flex-shrink:0;">
+              <button type="button" class="btn-outline-blue" data-edit-photo="${idx}" data-source="${escapeHtml(filter)}">Editar</button>
+              <button type="button" class="btn-del" data-del-photo="${idx}" data-source="${escapeHtml(filter)}">Eliminar</button>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      photosList.querySelectorAll("[data-edit-photo]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.editPhoto);
+          const source = btn.dataset.source;
+          document.getElementById("photo-edit-index").value = String(idx);
+          if (photoTargetDest) photoTargetDest.value = source;
+
+          if (source === "carousel") {
+            const p = CMS_STATE.photos[idx];
+            if (!p) return;
+            document.getElementById("photo-title").value = p.title;
+            document.getElementById("photo-location").value = p.location;
+            document.getElementById("photo-url").value = p.url.startsWith("data:") ? "" : p.url;
+          } else {
+            const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === source);
+            const p = album?.photos?.[idx];
+            if (!p) return;
+            document.getElementById("photo-title").value = p.caption || "";
+            document.getElementById("photo-location").value = p.date || "";
+            document.getElementById("photo-url").value = p.url.startsWith("data:") ? "" : p.url;
+          }
+
+          document.getElementById("photo-form-heading").textContent = "✏️ Editar Foto";
+          photoCancelBtn.style.display = "inline-flex";
+          window.scrollTo({ top: photoForm.offsetTop - 30, behavior: "smooth" });
+        });
+      });
+
+      photosList.querySelectorAll("[data-del-photo]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!confirm("¿Deseas eliminar esta foto?")) return;
+          const idx = Number(btn.dataset.delPhoto);
+          const source = btn.dataset.source;
+
+          if (source === "carousel") {
+            CMS_STATE.photos.splice(idx, 1);
+          } else {
+            const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === source);
+            if (album && album.photos) {
+              album.photos.splice(idx, 1);
+            }
+          }
+
+          window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+          updateAlbumSelectOptions();
+          renderAlbumsList();
+          renderPhotosList();
+        });
+      });
+
+      photosList.querySelectorAll("[data-view-photo]").forEach((el) => {
+        el.addEventListener("click", () => {
+          const idx = Number(el.dataset.viewPhoto);
+          const source = el.dataset.source;
+          let list = [];
+          if (source === "carousel") {
+            list = (CMS_STATE.photos || []).map((p) => ({
+              url: p.url,
+              title: p.title,
+              caption: p.title,
+              sub: `${p.location || "Malabo"} ${p.desc ? "· " + p.desc : ""}`
+            }));
+          } else {
+            const album = (CMS_STATE.eventAlbums || []).find((a) => a.id === source);
+            list = (album?.photos || []).map((p) => ({
+              url: p.url,
+              title: album.title,
+              caption: p.caption || album.title,
+              sub: `Álbum: ${album.title} · ${p.date || album.date} · 📍 ${album.location}`
+            }));
+          }
+          openAdminViewer(list, idx);
+        });
+      });
+    }
+
+    photosFilterSelect?.addEventListener("change", renderPhotosList);
+
+    /* Lógica del Visor de Fotos en Grande (Admin) */
+    let adminViewerPhotos = [];
+    let adminViewerIndex = 0;
+    const adminViewerModal = document.getElementById("admin-photo-viewer-modal");
+
+    function openAdminViewer(photos, startIndex = 0) {
+      if (!photos || !photos.length) return;
+      adminViewerPhotos = photos;
+      adminViewerIndex = Math.max(0, Math.min(startIndex, photos.length - 1));
+      updateAdminViewerContent();
+      if (adminViewerModal) {
+        if (typeof adminViewerModal.showModal === "function") adminViewerModal.showModal();
+        else adminViewerModal.setAttribute("open", "");
+      }
+    }
+
+    function updateAdminViewerContent() {
+      if (!adminViewerPhotos.length) return;
+      const cur = adminViewerPhotos[adminViewerIndex];
+      const img = document.getElementById("admin-viewer-img");
+      const title = document.getElementById("admin-viewer-title");
+      const cap = document.getElementById("admin-viewer-caption");
+      const sub = document.getElementById("admin-viewer-sub");
+      const counter = document.getElementById("admin-viewer-counter");
+
+      if (img) img.src = cur.url;
+      if (title) title.textContent = cur.title || "Visor de Foto";
+      if (cap) cap.textContent = cur.caption || cur.title || "";
+      if (sub) sub.textContent = cur.sub || "";
+      if (counter) counter.textContent = `${adminViewerIndex + 1} / ${adminViewerPhotos.length}`;
+    }
+
+    function nextAdminViewer() {
+      if (!adminViewerPhotos.length) return;
+      adminViewerIndex = (adminViewerIndex + 1) % adminViewerPhotos.length;
+      updateAdminViewerContent();
+    }
+
+    function prevAdminViewer() {
+      if (!adminViewerPhotos.length) return;
+      adminViewerIndex = (adminViewerIndex - 1 + adminViewerPhotos.length) % adminViewerPhotos.length;
+      updateAdminViewerContent();
+    }
+
+    document.getElementById("admin-viewer-close-btn")?.addEventListener("click", () => {
+      adminViewerModal?.close();
+    });
+    document.getElementById("admin-viewer-prev-btn")?.addEventListener("click", prevAdminViewer);
+    document.getElementById("admin-viewer-next-btn")?.addEventListener("click", nextAdminViewer);
+    document.getElementById("admin-viewer-bottom-prev")?.addEventListener("click", prevAdminViewer);
+    document.getElementById("admin-viewer-bottom-next")?.addEventListener("click", nextAdminViewer);
+    document.getElementById("admin-viewer-img-wrap")?.addEventListener("click", nextAdminViewer);
+
+    document.addEventListener("keydown", (e) => {
+      if (adminViewerModal && adminViewerModal.open) {
+        if (e.key === "ArrowLeft") { e.preventDefault(); prevAdminViewer(); }
+        if (e.key === "ArrowRight") { e.preventDefault(); nextAdminViewer(); }
+      }
+    });
+
+    /* ----------------------------------------------------
+       TAB 4: ARTÍCULOS Y NOTICIAS (CMS)
+       ---------------------------------------------------- */
+    const artForm = document.getElementById("admin-article-form");
+    const artCancelBtn = document.getElementById("art-cancel-edit-btn");
+    const articlesList = document.getElementById("admin-articles-list");
+
+    function renderArticlesList() {
+      if (!articlesList) return;
+      const articles = CMS_STATE.articlesSection?.items || [];
+      if (!articles.length) {
+        articlesList.innerHTML = '<p style="color:var(--silver-muted); font-size:0.85rem;">No hay artículos publicados.</p>';
+        return;
+      }
+      articlesList.innerHTML = articles
+        .map(
+          (a) => `
+        <div class="cms-item-card">
+          <div class="cms-item-left">
+            <img src="${escapeHtml(a.image || "/assets/gallery-donbosco.svg")}" alt="${escapeHtml(a.title)}" class="cms-thumb" />
+            <div>
+              <div class="cms-item-title">${escapeHtml(a.title)}</div>
+              <span class="cms-item-sub">${escapeHtml(a.category)} · ${escapeHtml(a.date)}</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-shrink:0;">
+            <button type="button" class="btn-outline-blue" data-edit-art="${escapeHtml(a.id)}">Editar</button>
+            <button type="button" class="btn-del" data-del-art="${escapeHtml(a.id)}">Eliminar</button>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+
+      articlesList.querySelectorAll("[data-edit-art]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.editArt;
+          const a = CMS_STATE.articlesSection.items.find((x) => x.id === id);
+          if (!a) return;
+          document.getElementById("article-edit-id").value = a.id;
+          document.getElementById("art-title").value = a.title;
+          document.getElementById("art-category").value = a.category;
+          document.getElementById("art-date").value = a.date;
+          document.getElementById("art-img-url").value = a.image?.startsWith("data:") ? "" : (a.image || "");
+          document.getElementById("art-excerpt").value = a.excerpt;
+          document.getElementById("art-content").value = a.content;
+          document.getElementById("article-form-heading").textContent = "✏️ Editar Artículo";
+          artCancelBtn.style.display = "inline-flex";
+          window.scrollTo({ top: artForm.offsetTop - 40, behavior: "smooth" });
+        });
+      });
+
+      articlesList.querySelectorAll("[data-del-art]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!confirm("¿Deseas eliminar este artículo?")) return;
+          const id = btn.dataset.delArt;
+          CMS_STATE.articlesSection.items = CMS_STATE.articlesSection.items.filter((x) => x.id !== id);
+          window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+          renderArticlesList();
+        });
+      });
+    }
+
+    artCancelBtn?.addEventListener("click", () => {
+      artForm.reset();
+      document.getElementById("article-edit-id").value = "";
+      document.getElementById("article-form-heading").textContent = "📰 Publicar o Editar Artículo / Crónica";
+      artCancelBtn.style.display = "none";
+    });
+
+    artForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const editId = document.getElementById("article-edit-id").value;
+      const title = document.getElementById("art-title").value.trim();
+      const category = document.getElementById("art-category").value.trim();
+      const date = document.getElementById("art-date").value.trim();
+      const excerpt = document.getElementById("art-excerpt").value.trim();
+      const content = document.getElementById("art-content").value.trim();
+      const fileInput = document.getElementById("art-file");
+      const urlInput = document.getElementById("art-img-url").value.trim();
+
+      let finalImg = urlInput;
+      if (fileInput.files && fileInput.files[0]) {
+        finalImg = await compressImageFile(fileInput.files[0]);
+      }
+      if (!finalImg && editId) {
+        const exist = CMS_STATE.articlesSection.items.find((x) => x.id === editId);
+        if (exist) finalImg = exist.image;
+      }
+      if (!finalImg) {
+        finalImg = "/assets/gallery-donbosco.svg";
+      }
+
+      if (editId) {
+        const idx = CMS_STATE.articlesSection.items.findIndex((x) => x.id === editId);
+        if (idx !== -1) {
+          CMS_STATE.articlesSection.items[idx] = {
+            id: editId,
+            title,
+            category,
+            date,
+            image: finalImg,
+            excerpt,
+            content
+          };
+        }
+      } else {
+        const newId = `art-${Date.now()}`;
+        CMS_STATE.articlesSection.items.unshift({
+          id: newId,
+          title,
+          category,
+          date,
+          image: finalImg,
+          excerpt,
+          content
+        });
+      }
+
+      window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+      artForm.reset();
+      document.getElementById("article-edit-id").value = "";
+      document.getElementById("article-form-heading").textContent = "📰 Publicar o Editar Artículo / Crónica";
+      artCancelBtn.style.display = "none";
+      renderArticlesList();
+
+      const toast = document.getElementById("art-saved-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(() => (toast.style.display = "none"), 3000);
+      }
+    });
+
+    /* ----------------------------------------------------
+       TAB 5: NUEVAS SECCIONES PERSONALIZADAS (CMS)
+       ---------------------------------------------------- */
+    const customForm = document.getElementById("admin-custom-form");
+    const customCancelBtn = document.getElementById("cust-cancel-edit-btn");
+    const customList = document.getElementById("admin-custom-list");
+
+    function renderCustomList() {
+      if (!customList) return;
+      const sections = CMS_STATE.customSections || [];
+      if (!sections.length) {
+        customList.innerHTML = '<p style="color:var(--silver-muted); font-size:0.85rem;">No hay secciones personalizadas añadidas todavía.</p>';
+        return;
+      }
+      customList.innerHTML = sections
+        .map(
+          (s) => `
+        <div class="cms-item-card">
+          <div class="cms-item-left">
+            <div>
+              <div class="cms-item-title">${escapeHtml(s.title)} <span class="pill-badge" style="margin-left:0.5rem;">Menú: ${escapeHtml(s.navLabel)}</span></div>
+              <span class="cms-item-sub">${escapeHtml(s.desc)}</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.45rem; flex-shrink:0;">
+            <button type="button" class="btn-outline-blue" data-edit-cust="${escapeHtml(s.id)}">Editar</button>
+            <button type="button" class="btn-del" data-del-cust="${escapeHtml(s.id)}">Eliminar</button>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+
+      customList.querySelectorAll("[data-edit-cust]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.editCust;
+          const s = CMS_STATE.customSections.find((x) => x.id === id);
+          if (!s) return;
+          document.getElementById("custom-edit-id").value = s.id;
+          document.getElementById("cust-nav").value = s.navLabel;
+          document.getElementById("cust-eyebrow").value = s.eyebrow || "";
+          document.getElementById("cust-title").value = s.title;
+          document.getElementById("cust-desc").value = s.desc;
+          document.getElementById("cust-items").value = (s.items || []).map((it) => `${it.title} | ${it.desc}`).join("\n");
+          document.getElementById("custom-form-heading").textContent = "✏️ Editar Sección Personalizada";
+          customCancelBtn.style.display = "inline-flex";
+          window.scrollTo({ top: customForm.offsetTop - 40, behavior: "smooth" });
+        });
+      });
+
+      customList.querySelectorAll("[data-del-cust]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!confirm("¿Deseas eliminar esta sección personalizada de la web?")) return;
+          const id = btn.dataset.delCust;
+          CMS_STATE.customSections = CMS_STATE.customSections.filter((x) => x.id !== id);
+          window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+          renderCustomList();
+        });
+      });
+    }
+
+    customCancelBtn?.addEventListener("click", () => {
+      customForm.reset();
+      document.getElementById("custom-edit-id").value = "";
+      document.getElementById("custom-form-heading").textContent = "➕ Crear Nueva Sección en la Web";
+      customCancelBtn.style.display = "none";
+    });
+
+    customForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const editId = document.getElementById("custom-edit-id").value;
+      const navLabel = document.getElementById("cust-nav").value.trim();
+      const eyebrow = document.getElementById("cust-eyebrow").value.trim();
+      const title = document.getElementById("cust-title").value.trim();
+      const desc = document.getElementById("cust-desc").value.trim();
+      const itemsRaw = document.getElementById("cust-items").value.trim();
+
+      const items = itemsRaw
+        .split("\n")
+        .filter(Boolean)
+        .map((line) => {
+          const [t, d] = line.split("|").map((s) => s.trim());
+          return { title: t || "", desc: d || "" };
+        });
+
+      if (!CMS_STATE.customSections) CMS_STATE.customSections = [];
+
+      if (editId) {
+        const idx = CMS_STATE.customSections.findIndex((x) => x.id === editId);
+        if (idx !== -1) {
+          CMS_STATE.customSections[idx] = { id: editId, navLabel, eyebrow, title, desc, items };
+        }
+      } else {
+        const newId = `sec-${Date.now()}`;
+        CMS_STATE.customSections.push({ id: newId, navLabel, eyebrow, title, desc, items });
+      }
+
+      window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+
+      customForm.reset();
+      document.getElementById("custom-edit-id").value = "";
+      document.getElementById("custom-form-heading").textContent = "➕ Crear Nueva Sección en la Web";
+      customCancelBtn.style.display = "none";
+      renderCustomList();
+
+      const toast = document.getElementById("cust-saved-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(() => (toast.style.display = "none"), 3000);
+      }
+    });
+
+    /* ----------------------------------------------------
+       TAB 6: CLAVE Y RESPALDO (CMS)
+       ---------------------------------------------------- */
+    document.getElementById("admin-password-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newPass = document.getElementById("new-pass-input").value.trim();
+      if (!newPass) return;
+      localStorage.setItem(PASS_KEY, newPass);
+      document.getElementById("new-pass-input").value = "";
+      const toast = document.getElementById("pass-saved-toast");
+      if (toast) {
+        toast.style.display = "block";
+        setTimeout(() => (toast.style.display = "none"), 3000);
+      }
+    });
+
+    document.getElementById("export-json-backup-btn")?.addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CMS_STATE, null, 2));
+      const a = document.createElement("a");
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `locos_voley_cms_backup_${new Date().toISOString().slice(0, 10)}.json`);
+      a.click();
+    });
+
+    document.getElementById("reset-defaults-btn")?.addEventListener("click", () => {
+      if (!confirm("¿Seguro que deseas restaurar los contenidos oficiales por defecto? Se sobreescribirán los cambios no exportados.")) return;
+      CMS_STATE = structuredClone(DEFAULT_STATE);
+      window.saveState ? window.saveState(CMS_STATE) : localStorage.setItem(STORAGE_KEY, JSON.stringify(CMS_STATE));
+      alert("Contenidos oficiales restaurados.");
+      renderSectionEditor(sectionSelector.value);
+      updateAlbumSelectOptions();
+      renderAlbumsList();
+      renderPhotosList();
+      renderArticlesList();
+      renderCustomList();
+    });
+
+    /* ----------------------------------------------------
+       INICIALIZACIÓN GENERAL
+       ---------------------------------------------------- */
+    function initAdminData() {
+      initFirestoreListener();
+      renderSectionEditor(sectionSelector?.value || "hero");
+      updateAlbumSelectOptions();
+      renderAlbumsList();
+      renderPhotosList();
+      renderArticlesList();
+      renderCustomList();
+
+      // Abrir pestaña indicada en la URL (ej. ?tab=photos)
+      const tabParam = new URLSearchParams(window.location.search).get("tab");
+      if (tabParam && ["students", "sections", "photos", "articles", "custom", "settings"].includes(tabParam)) {
+        switchTab(tabParam);
+      }
+    }
+
+    checkAuth();
+    if (sessionStorage.getItem(SESSION_KEY) === "1") {
+      initAdminData();
+    }
+  </script>
+</body>
+</html>
